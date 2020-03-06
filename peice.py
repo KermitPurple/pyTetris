@@ -53,10 +53,10 @@ class peice:
         self.scl = scl
         self.grid = grid
         self.peice = [
-                "IIII",
-                "IIII",
-                "IIII",
-                "IIII",
+                "....",
+                ".II.",
+                ".II.",
+                "....",
                 ]
 
     def realpos(self, x=0, y=0):
@@ -77,6 +77,8 @@ class peice:
             for j, ch in enumerate(line):
                 if ch != '.':
                     if self.pos.x + j < 0 or self.pos.x + j > 9 or self.pos.y + i > 19:
+                        return True
+                    elif self.grid[self.pos.y + i][self.pos.x + j] != '.':
                         return True
         return False
 
