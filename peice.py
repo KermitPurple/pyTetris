@@ -47,10 +47,11 @@ class peice:
 	],
         ]
 
-    def __init__(self, screen, scl, pos=coord(0,0)):
+    def __init__(self, screen, scl, grid, pos=coord(0,0)):
         self.screen = screen
-        self.scl = scl
         self.pos = pos
+        self.scl = scl
+        self.grid = grid
         self.peice = [
                 ".I..",
                 ".I..",
@@ -70,4 +71,3 @@ class peice:
                 if ch != '.':
                     real = self.realpos()
                     self.printblock(coord(real.x + j * self.scl, real.y + i * self.scl))
-

@@ -8,7 +8,7 @@ class game:
         self.screen = pygame.display.set_mode(size=sz)
         self.running = True
         self.scl = scl
-        grid = [
+        self.grid = [
                 "..........",
                 "..........",
                 "..........",
