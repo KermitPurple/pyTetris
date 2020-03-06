@@ -1,4 +1,5 @@
 import pygame
+from coord import coord
 from peice import peice
 from time import sleep
 
@@ -35,20 +36,18 @@ class game:
         #game loop
         x = 0
         pygame.key.set_repeat(40)
-        p = peice(self.screen, self.scl, self.grid)
+        p = peice(self.screen, self.scl, self.grid, coord(4,0))
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.unicode == 'a':
-                        p.pos.x -= 1
-                    elif event.unicode == 'd':
-                        p.pos.x += 1
-                    elif event.unicode == 'w':
-                        p.pos.y -= 1
+                        p.move(coord(-1,0))
                     elif event.unicode == 's':
-                        p.pos.y += 1
+                        p.move(coord(0,1))
+                    elif event.unicode == 'd':
+                        p.move(coord(1,0))
             self.screen.fill((0,0,0)) #clear screen
             p.printpeice()
             pygame.display.update()

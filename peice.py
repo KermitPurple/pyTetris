@@ -53,10 +53,10 @@ class peice:
         self.scl = scl
         self.grid = grid
         self.peice = [
-                ".I..",
-                ".I..",
-                ".I..",
-                ".I..",
+                "IIII",
+                "IIII",
+                "IIII",
+                "IIII",
                 ]
 
     def realpos(self, x=0, y=0):
@@ -71,3 +71,17 @@ class peice:
                 if ch != '.':
                     real = self.realpos(j, i)
                     self.printblock(coord(real.x, real.y))
+
+    def colision(self):
+        if self.pos.x < -2 or self.pos.x > 8 or self.pos.y > 18:
+            return True
+        else:
+            return False
+
+    def move(self, change):
+        self.pos.x += change.x
+        self.pos.y += change.y
+        if self.colision():
+            self.pos.x -= change.x
+            self.pos.y -= change.y
+
