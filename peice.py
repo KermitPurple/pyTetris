@@ -73,10 +73,12 @@ class peice:
                     self.printblock(coord(real.x, real.y))
 
     def colision(self):
-        if self.pos.x < -2 or self.pos.x > 8 or self.pos.y > 18:
-            return True
-        else:
-            return False
+        for i, line in enumerate(self.peice):
+            for j, ch in enumerate(line):
+                if ch != '.':
+                    if self.pos.x + j < 0 or self.pos.x + j > 9 or self.pos.y + i > 19:
+                        return True
+        return False
 
     def move(self, change):
         self.pos.x += change.x
