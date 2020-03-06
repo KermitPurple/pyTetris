@@ -45,7 +45,8 @@ class peice:
 		"....",
 	],
         ]
-    def __init__(self, pos=coord(0,0), scl=10):
+
+    def __init__(self, screen, scl, pos=coord(0,0)):
         self.pos = pos
         self.peice = [
                 "....",
