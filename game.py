@@ -31,12 +31,45 @@ class game:
                 "..........",
                 "..........",
                 ]
+        self.queue = [
+            [
+                    "....",
+                    "....",
+                    "....",
+                    "....",
+            ],
+            [
+                    "....",
+                    "....",
+                    "....",
+                    "....",
+            ],
+            [
+                    "....",
+                    "....",
+                    "....",
+                    "....",
+            ],
+            [
+                    "....",
+                    "....",
+                    "....",
+                    "....",
+            ],
+            [
+                    "....",
+                    "....",
+                    "....",
+                    "....",
+            ],
+            ]
+        
 
     def play(self):
         #game loop
         x = 0
-        pygame.key.set_repeat(40)
-        p = peice(self.screen, self.scl, self.grid, coord(4,0))
+        pygame.key.set_repeat(80)
+        p = peice(self.screen, self.scl, self.grid, self.queue, coord(4,0))
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -48,6 +81,10 @@ class game:
                         p.move(coord(0,1))
                     elif event.unicode == 'd':
                         p.move(coord(1,0))
+                    elif event.unicode == 'q':
+                        p.rotate('l')
+                    elif event.unicode == 'e':
+                        p.rotate('r')
             self.screen.fill((0,0,0)) #clear screen
             p.printpeice()
             pygame.display.update()

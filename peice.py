@@ -47,15 +47,16 @@ class peice:
 	],
         ]
 
-    def __init__(self, screen, scl, grid, pos=coord(0,0)):
+    def __init__(self, screen, scl, grid, queue,pos=coord(0,0)):
         self.screen = screen
         self.pos = pos
         self.scl = scl
         self.grid = grid
+        self.queue = queue
         self.peice = [
-                "....",
-                ".II.",
-                ".II.",
+                ".T..",
+                ".TT.",
+                ".T..",
                 "....",
                 ]
 
@@ -72,7 +73,7 @@ class peice:
                     real = self.realpos(j, i)
                     self.printblock(coord(real.x, real.y))
 
-    def colision(self):
+    def collision(self):
         for i, line in enumerate(self.peice):
             for j, ch in enumerate(line):
                 if ch != '.':
@@ -85,7 +86,45 @@ class peice:
     def move(self, change):
         self.pos.x += change.x
         self.pos.y += change.y
-        if self.colision():
+        if self.collision():
             self.pos.x -= change.x
             self.pos.y -= change.y
 
+    def rotate(self, ch):
+        temp = [
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ]
+        if ch == 'r':
+            for i in range(4):
+                for j in range(4):
+                    temp[i][j] = self.peice[3 - j][i]
+            self.peice = temp
+            if self.collision():
+                self.rotate('l')
+        elif ch == 'l':
+            for i in range(4):
+                for j in range(4):
+                    temp[i][j] = self.peice[j][3 - i]
+            self.peice = temp
+            if self.collision():
+                self.rotate('r')
+
+    def getnextpeice(self):
+        pass
+
+    def getrandpeice(self):
+        pass
+    
+    def fillqueue(self):
+        empty = [
+		"....",
+		"....",
+		"....",
+		"....",
+                ]
+        for item in self.queue:
+            if item != empty:
+                item = self.getrandpeice()
