@@ -35,7 +35,7 @@ class game:
         #game loop
         x = 0
         pygame.key.set_repeat(40)
-        p = peice(self.screen, self.scl)
+        p = peice(self.screen, self.scl, self.grid)
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

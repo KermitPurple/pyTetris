@@ -59,8 +59,8 @@ class peice:
                 ".I..",
                 ]
 
-    def realpos(self):
-        return coord(self.pos.x * self.scl, self.pos.y * self.scl)
+    def realpos(self, x=0, y=0):
+        return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl)
 
     def printblock(self, real):
         pygame.draw.rect(self.screen, (255,255,255), pygame.Rect(real.x, real.y, self.scl, self.scl))    
@@ -69,5 +69,5 @@ class peice:
         for i, line in enumerate(self.peice):
             for j, ch in enumerate(line):
                 if ch != '.':
-                    real = self.realpos()
-                    self.printblock(coord(real.x + j * self.scl, real.y + i * self.scl))
+                    real = self.realpos(j, i)
+                    self.printblock(coord(real.x, real.y))
