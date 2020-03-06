@@ -1,3 +1,4 @@
+import pygame
 from coord import coord
 
 class peice:
@@ -47,13 +48,26 @@ class peice:
         ]
 
     def __init__(self, screen, scl, pos=coord(0,0)):
+        self.screen = screen
+        self.scl = scl
         self.pos = pos
         self.peice = [
-                "....",
-                "....",
-                "....",
-                "....",
+                ".I..",
+                ".I..",
+                ".I..",
+                ".I..",
                 ]
 
     def realpos(self):
-        return coord(pos.x*scl, pos.y*scl)
+        return coord(self.pos.x * self.scl, self.pos.y * self.scl)
+
+    def printblock(self, real):
+        pygame.draw.rect(self.screen, (255,255,255), pygame.Rect(real.x, real.y, self.scl, self.scl))    
+
+    def printpeice(self):
+        for i, line in enumerate(self.peice):
+            for j, ch in enumerate(line):
+                if ch != '.':
+                    real = self.realpos()
+                    self.printblock(coord(real.x + j * self.scl, real.y + i * self.scl))
+

@@ -35,16 +35,21 @@ class game:
         #game loop
         x = 0
         pygame.key.set_repeat(40)
+        p = peice(self.screen, self.scl)
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.unicode == 'a':
-                        x -= self.scl
+                        p.pos.x -= 1
                     elif event.unicode == 'd':
-                        x += self.scl
+                        p.pos.x += 1
+                    elif event.unicode == 'w':
+                        p.pos.y -= 1
+                    elif event.unicode == 's':
+                        p.pos.y += 1
             self.screen.fill((0,0,0)) #clear screen
-            pygame.draw.rect(self.screen, (255,255,255), pygame.Rect(x, 0, 30, 30))    
+            p.printpeice()
             pygame.display.update()
             sleep(0.02)
