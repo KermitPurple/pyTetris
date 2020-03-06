@@ -1,4 +1,5 @@
 import pygame
+from coord import coord
 pygame.display.init()
 screen = pygame.display.set_mode(size=(300,600))
 
