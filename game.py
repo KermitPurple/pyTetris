@@ -289,6 +289,18 @@ class game:
     def printtop(self):
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (self.sz[0], self.offset.y),3)
 
+    def printgridlines(self):
+        #grid lines
+        for i in range(1,10):
+            pygame.draw.line(self.screen, (255,255,255), (i * self.scl, self.offset.y), (i * self.scl, self.sz[1]))
+            pygame.draw.line(self.screen, (255,255,255), (0, i * self.scl + self.offset.y), (10 * self.scl, i * self.scl + self.offset.y))
+            pygame.draw.line(self.screen, (255,255,255), (0, (i+9) * self.scl + self.offset.y), (10 * self.scl, (i + 9) * self.scl + self.offset.y))
+        pygame.draw.line(self.screen, (255,255,255), (0, 19 * self.scl + self.offset.y), (10 * self.scl, 19 * self.scl + self.offset.y))
+        #outline
+        pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (10 * self.scl, self.offset.y),3)
+        pygame.draw.line(self.screen, (255,255,255), (0, self.sz[1]), (10 * self.scl, self.sz[1]),3)
+        pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (0, self.sz[1]),3)
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -322,5 +334,6 @@ class game:
             self.printqueue()
             self.printhold()
             self.printpeice()
+            self.printgridlines()
             pygame.display.update()
             self.tik()
