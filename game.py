@@ -292,10 +292,10 @@ class game:
     def printgridlines(self):
         #grid lines
         for i in range(1,10):
-            pygame.draw.line(self.screen, (255,255,255), (i * self.scl, self.offset.y), (i * self.scl, self.sz[1]))
-            pygame.draw.line(self.screen, (255,255,255), (0, i * self.scl + self.offset.y), (10 * self.scl, i * self.scl + self.offset.y))
-            pygame.draw.line(self.screen, (255,255,255), (0, (i+9) * self.scl + self.offset.y), (10 * self.scl, (i + 9) * self.scl + self.offset.y))
-        pygame.draw.line(self.screen, (255,255,255), (0, 19 * self.scl + self.offset.y), (10 * self.scl, 19 * self.scl + self.offset.y))
+            pygame.draw.line(self.screen, (100,100,100), (i * self.scl, self.offset.y), (i * self.scl, self.sz[1]))
+            pygame.draw.line(self.screen, (100,100,100), (0, i * self.scl + self.offset.y), (10 * self.scl, i * self.scl + self.offset.y))
+            pygame.draw.line(self.screen, (100,100,100), (0, (i+9) * self.scl + self.offset.y), (10 * self.scl, (i + 9) * self.scl + self.offset.y))
+        pygame.draw.line(self.screen, (100,100,100), (0, 19 * self.scl + self.offset.y), (10 * self.scl, 19 * self.scl + self.offset.y))
         #outline
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (10 * self.scl, self.offset.y),3)
         pygame.draw.line(self.screen, (255,255,255), (0, self.sz[1]), (10 * self.scl, self.sz[1]),3)
