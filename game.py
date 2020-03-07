@@ -370,3 +370,12 @@ class game:
             self.printgridlines()
             pygame.display.update()
             self.tik()
+
+    def printcontrols(self):
+        print("W - Instant drop")
+        print("A - Move left")
+        print("S - Move down")
+        print("D - Move right")
+        print("Q - rotate left")
+        print("E - rotate right")
+        print("<SPACE> - Swap hold")
