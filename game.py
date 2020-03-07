@@ -128,7 +128,8 @@ class game:
             for j, ch in enumerate(line):
                 if ch != '.':
                     real = self.realpos(j, i)
-                    self.printblock(coord(real.x, real.y), (255,255,255))
+                    color = self.selectcolor(ch)
+                    self.printblock(coord(real.x, real.y), color)
 
     def collision(self):
         for i, line in enumerate(self.peice):
