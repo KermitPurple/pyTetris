@@ -120,15 +120,15 @@ class game:
     def realpos(self, x=0, y=0):
         return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl)
 
-    def printblock(self, real):
-        pygame.draw.rect(self.screen, (255,255,255), pygame.Rect(real.x, real.y, self.scl, self.scl))    
+    def printblock(self, real, color):
+        pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, self.scl, self.scl))    
 
     def printpeice(self):
         for i, line in enumerate(self.peice):
             for j, ch in enumerate(line):
                 if ch != '.':
                     real = self.realpos(j, i)
-                    self.printblock(coord(real.x, real.y))
+                    self.printblock(coord(real.x, real.y), (255,255,255))
 
     def collision(self):
         for i, line in enumerate(self.peice):
@@ -199,7 +199,24 @@ class game:
         for i, line in enumerate(self.grid):
             for j, ch in enumerate(line):
                 if ch != '.':
-                    self.printblock(coord(j * self.scl, i* self.scl))
+                    color = self.selectcolor(ch)
+                    self.printblock(coord(j * self.scl, i* self.scl), color)
+
+    def selectcolor(self, ch):
+        if ch == 'I':
+            return (64, 207, 255)
+        elif ch == 'S':
+            return (4, 255, 0)
+        elif ch == 'Z':
+            return (255, 0, 0)
+        elif ch == 'T':
+            return (174, 0, 255)
+        elif ch == 'O':
+            return (238, 255, 0)
+        elif ch == 'L':
+            return (255, 153, 0)
+        elif ch == 'J':
+            return (0, 13, 255)
 
     def play(self):
         #game loop
