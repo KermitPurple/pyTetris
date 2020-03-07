@@ -162,7 +162,7 @@ class game:
             return False
         return True
 
-    def rotate(self, ch):
+    def rotate(self, ch, recur=True):
         temp = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -174,15 +174,15 @@ class game:
                 for j in range(4):
                     temp[i][j] = self.peice[3 - j][i]
             self.peice = temp
-            if self.collision():
-                self.rotate('l')
+            if self.collision() and recur:
+                self.rotate('l', False)
         elif ch == 'l':
             for i in range(4):
                 for j in range(4):
                     temp[i][j] = self.peice[j][3 - i]
             self.peice = temp
-            if self.collision():
-                self.rotate('r')
+            if self.collision() and recur:
+                self.rotate('r', False)
 
     def getnextpeice(self):
         self.peice = self.queue.pop(0)
