@@ -56,6 +56,13 @@ class game:
         self.running = True
         self.scl = scl
         self.pos = coord(4,0)
+        self.holdready = True
+        self.hold = [
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ['.','.','.','.'],
+                ]
         self.grid = [
                 ['.','.','.','.','.','.','.','.','.','.'],
                 ['.','.','.','.','.','.','.','.','.','.'],
@@ -191,6 +198,7 @@ class game:
         self.queue = new_queue
 
     def lock(self):
+        self.holdready = True
         for i, line in enumerate(self.peice):
             for j, ch in enumerate(line):
                 if ch != '.':
@@ -235,6 +243,19 @@ class game:
                     color = self.selectcolor(ch)
                     self.printblock(point, color)
 
+    def swaphold(self):
+        if self.holdready:
+            self.peice, self.hold = self.hold, self.peice
+            self.pos = coord(4,0)
+            self.holdready = False
+            empty = True
+            for line in self.peice:
+                for ch in line:
+                    if ch != '.':
+                        empty = False
+            if empty:
+                self.getnextpeice()
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -256,8 +277,8 @@ class game:
                         self.rotate('l')
                     elif event.unicode == 'e':
                         self.rotate('r')
-                    elif event.unicode == 'l':
-                        self.lock()
+                    elif event.unicode == ' ':
+                        self.swaphold()
             self.screen.fill((0,0,0)) #clear screen
             self.printgrid()
             self.printqueue()
