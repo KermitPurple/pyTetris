@@ -62,6 +62,7 @@ class game:
         self.holdready = True
         self.speed = 20
         self.offset = coord(0, 40)
+        self.score = 0
         self.hold = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -239,7 +240,7 @@ class game:
 
     def instadrop(self):
         while self.move(coord(0,1)):
-            pass
+            self.score += 5
 
     def printqueue(self):
         pygame.draw.line(self.screen, (255,255,255), (300, 0+ self.offset.y), (300,600+ self.offset.y), 3)
@@ -272,6 +273,7 @@ class game:
                 self.printblock(point, color)
 
     def clearlines(self):
+        cleared = 0
         for i, line in enumerate(self.grid):
             full = True            
             for ch in line:
@@ -280,6 +282,15 @@ class game:
             if full:
                 _ = self.grid.pop(i)
                 self.grid.insert(0, ['.','.','.','.','.','.','.','.','.','.',])
+                cleared += 1
+            if cleared == 1:
+                self.score += 100
+            elif cleared == 2:
+                self.score += 200
+            elif cleared == 3:
+                self.score += 400
+            elif cleared == 4:
+                self.score += 1600
 
     def tik(self):
         self.tiks += 1
@@ -289,8 +300,7 @@ class game:
 
     def printtop(self):
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (self.sz[0], self.offset.y),3)
-        score = 0
-        txt = pygame.font.SysFont("Arial", 20).render("Score: " + str(score), True, (255,255,255))
+        txt = pygame.font.SysFont("Arial", 20).render("Score: " + str(self.score), True, (255,255,255))
         self.screen.blit(txt, (5,8))
 
     def printgridlines(self):
@@ -321,6 +331,7 @@ class game:
                         self.move(coord(-1,0))
                     elif event.unicode == 's':
                         self.move(coord(0,1))
+                        self.score += 5
                     elif event.unicode == 'd':
                         self.move(coord(1,0))
                     elif event.unicode == 'q':
