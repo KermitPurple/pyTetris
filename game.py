@@ -308,9 +308,12 @@ class game:
                     elif event.unicode == ' ':
                         self.swaphold()
             self.screen.fill((0,0,0)) #clear screen
+            if self.tiks % 10 == 0:
+                self.move(coord(0,1))
             self.clearlines()
             self.printgrid()
             self.printqueue()
             self.printhold()
             self.printpeice()
             pygame.display.update()
+            self.tik()
