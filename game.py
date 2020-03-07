@@ -61,8 +61,9 @@ class game:
         self.pos = coord(4,0)
         self.holdready = True
         self.speed = 20
-        self.offset = coord(0, 40)
+        self.offset = coord(150, 40)
         self.score = 0
+        self.paused = False
         self.hold = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -301,9 +302,14 @@ class game:
         sleep(0.02)
 
     def printtop(self):
+        #Top line
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (self.sz[0], self.offset.y),3)
+        # Score
         txt = pygame.font.SysFont("Arial", 20).render("Score: " + str(self.score), True, (255,255,255))
         self.screen.blit(txt, (5,8))
+        # Hold
+        txt = pygame.font.SysFont("Arial", 30).render("HOLD", True, (255,255,255))
+        self.screen.blit(txt, (345,3))
 
     def printgridlines(self):
         #grid lines
@@ -332,42 +338,53 @@ class game:
                     color = (color[0]/3, color[1]/3, color[2]/3,)
                     self.printblock(coord(real.x, real.y), color)
 
+    def pause(self):
+        self.paused = not self.paused
+        txt = pygame.font.SysFont("Arial", 60).render("PAUSED", True, (255,255,255))
+        txtwidth = txt.get_width()
+        self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
         self.fillqueue()
         self.running = True
+        self.paused = False
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
-                    if event.unicode == 'w':
-                        self.instadrop()
-                    elif event.unicode == 'a':
-                        self.move(coord(-1,0))
-                    elif event.unicode == 's':
-                        self.move(coord(0,1))
-                        self.score += 5
-                    elif event.unicode == 'd':
-                        self.move(coord(1,0))
-                    elif event.unicode == 'q':
-                        self.rotate('l')
-                    elif event.unicode == 'e':
-                        self.rotate('r')
-                    elif event.unicode == ' ':
-                        self.swaphold()
-            self.screen.fill((0,0,0)) #clear screen
-            if self.tiks % self.speed == 0:
-                self.move(coord(0,1))
-            self.clearlines()
-            self.printtop()
-            self.printgrid()
-            self.printqueue()
-            self.printhold()
-            self.printshadow()
-            self.printpeice()
-            self.printgridlines()
+                    if event.unicode == 'p' or event.unicode == '\x1b':
+                        self.pause()
+                    if not self.paused:
+                        if event.unicode == 'w':
+                            self.instadrop()
+                        elif event.unicode == 'a':
+                            self.move(coord(-1,0))
+                        elif event.unicode == 's':
+                            self.move(coord(0,1))
+                            self.score += 5
+                        elif event.unicode == 'd':
+                            self.move(coord(1,0))
+                        elif event.unicode == 'q':
+                            self.rotate('l')
+                        elif event.unicode == 'e':
+                            self.rotate('r')
+                        elif event.unicode == ' ':
+                            self.swaphold()
+            if not self.paused:
+                self.screen.fill((0,0,0)) #clear screen
+                if self.tiks % self.speed == 0:
+                    self.move(coord(0,1))
+                self.clearlines()
+                self.printtop()
+                self.printgrid()
+                self.printqueue()
+                self.printhold()
+                self.printshadow()
+                self.printpeice()
+                self.printgridlines()
             pygame.display.update()
             self.tik()
 
