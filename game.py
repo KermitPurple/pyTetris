@@ -205,6 +205,8 @@ class game:
                     self.grid[i + self.pos.y][j + self.pos.x] = ch
         self.getnextpeice()
         self.pos = coord(4,0)
+        if self.collision():
+            self.running = False
 
     def printgrid(self):
         for i, line in enumerate(self.grid):
