@@ -152,6 +152,8 @@ class game:
             self.pos.y -= change.y
             if down:
                 self.lock()
+            return False
+        return True
 
     def rotate(self, ch):
         temp = [
@@ -219,6 +221,10 @@ class game:
         elif ch == 'J':
             return (0, 13, 255)
 
+    def instadrop(self):
+        while self.move(coord(0,1)):
+            pass
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -228,7 +234,9 @@ class game:
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN:
-                    if event.unicode == 'a':
+                    if event.unicode == 'w':
+                        self.instadrop()
+                    elif event.unicode == 'a':
                         self.move(coord(-1,0))
                     elif event.unicode == 's':
                         self.move(coord(0,1))
