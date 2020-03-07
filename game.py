@@ -332,7 +332,6 @@ class game:
                     color = (color[0]/3, color[1]/3, color[2]/3,)
                     self.printblock(coord(real.x, real.y), color)
 
-
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
