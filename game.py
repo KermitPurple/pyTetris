@@ -329,6 +329,7 @@ class game:
                 if ch != '.':
                     real = coord((shadowpos.x + j) * self.scl, (shadowpos.y + i ) * self.scl + self.offset.y)
                     color = self.selectcolor(ch)
+                    color = (color[0]/3, color[1]/3, color[2]/3,)
                     self.printblock(coord(real.x, real.y), color)
 
 
