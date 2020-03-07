@@ -58,6 +58,7 @@ class game:
         self.scl = scl
         self.pos = coord(4,0)
         self.holdready = True
+        self.speed = 20
         self.hold = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -308,7 +309,7 @@ class game:
                     elif event.unicode == ' ':
                         self.swaphold()
             self.screen.fill((0,0,0)) #clear screen
-            if self.tiks % 10 == 0:
+            if self.tiks % self.speed == 0:
                 self.move(coord(0,1))
             self.clearlines()
             self.printgrid()
