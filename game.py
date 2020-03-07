@@ -239,7 +239,7 @@ class game:
         for n, item in enumerate(self.queue):
             for i, line in enumerate(item):
                 for j, ch in enumerate(line):
-                    point = coord(315 + j * self.scl,15 + 150 * n + i * self.scl)
+                    point = coord(315 + j * self.scl,15 + 150 * (n+1) + i * self.scl)
                     color = self.selectcolor(ch)
                     self.printblock(point, color)
 
@@ -255,6 +255,14 @@ class game:
                         empty = False
             if empty:
                 self.getnextpeice()
+
+    def printhold(self):
+        pygame.draw.line(self.screen, (255,255,255), (300, 135), (450, 135), 3)
+        for i, line in enumerate(self.hold):
+            for j, ch in enumerate(line):
+                point = coord(315 + j * self.scl,14 + i * self.scl)
+                color = self.selectcolor(ch)
+                self.printblock(point, color)
 
     def play(self):
         #game loop
@@ -282,6 +290,7 @@ class game:
             self.screen.fill((0,0,0)) #clear screen
             self.printgrid()
             self.printqueue()
+            self.printhold()
             self.printpeice()
             pygame.display.update()
             sleep(0.02)
