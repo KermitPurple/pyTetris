@@ -50,15 +50,17 @@ class game:
 	],
         ]
 
-    def __init__(self, sz=(450,600), scl=30):
+    def __init__(self, sz=(450,640), scl=30):
         pygame.display.init()
         self.tiks = 0
         self.screen = pygame.display.set_mode(size=sz)
         self.running = False
+        self.sz = sz
         self.scl = scl
         self.pos = coord(4,0)
         self.holdready = True
         self.speed = 20
+        self.offset = coord(0, 40)
         self.hold = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -127,7 +129,7 @@ class game:
             ]
 
     def realpos(self, x=0, y=0):
-        return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl)
+        return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
 
     def printblock(self, real, color):
         pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, self.scl, self.scl))    
@@ -215,7 +217,7 @@ class game:
             for j, ch in enumerate(line):
                 if ch != '.':
                     color = self.selectcolor(ch)
-                    self.printblock(coord(j * self.scl, i* self.scl), color)
+                    self.printblock(coord(j * self.scl, i* self.scl + self.offset.y), color)
 
     def selectcolor(self, ch):
         if ch == 'I':
@@ -239,11 +241,11 @@ class game:
             pass
 
     def printqueue(self):
-        pygame.draw.line(self.screen, (255,255,255), (300, 0), (300,600), 3)
+        pygame.draw.line(self.screen, (255,255,255), (300, 0+ self.offset.y), (300,600+ self.offset.y), 3)
         for n, item in enumerate(self.queue):
             for i, line in enumerate(item):
                 for j, ch in enumerate(line):
-                    point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15)
+                    point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15 + self.offset.y)
                     color = self.selectcolor(ch)
                     self.printblock(point, color)
 
@@ -261,10 +263,10 @@ class game:
                 self.getnextpeice()
 
     def printhold(self):
-        pygame.draw.line(self.screen, (255,255,255), (300, 135), (450, 135), 3)
+        pygame.draw.line(self.screen, (255,255,255), (300, 135 + self.offset.y), (450, 135 + self.offset.y), 3)
         for i, line in enumerate(self.hold):
             for j, ch in enumerate(line):
-                point = coord(315 + j * self.scl,14 + i * self.scl)
+                point = coord(315 + j * self.scl,14 + i * self.scl + self.offset.y)
                 color = self.selectcolor(ch)
                 self.printblock(point, color)
 
@@ -283,6 +285,9 @@ class game:
         if self.tiks > 100000:
             self.tiks = 0
         sleep(0.02)
+
+    def printtop(self):
+        pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (self.sz[0], self.offset.y),3)
 
     def play(self):
         #game loop
@@ -312,6 +317,7 @@ class game:
             if self.tiks % self.speed == 0:
                 self.move(coord(0,1))
             self.clearlines()
+            self.printtop()
             self.printgrid()
             self.printqueue()
             self.printhold()
