@@ -52,6 +52,7 @@ class game:
 
     def __init__(self, sz=(450,640), scl=30):
         pygame.display.init()
+        pygame.font.init()
         self.tiks = 0
         self.screen = pygame.display.set_mode(size=sz)
         self.running = False
@@ -288,6 +289,9 @@ class game:
 
     def printtop(self):
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (self.sz[0], self.offset.y),3)
+        score = 0
+        txt = pygame.font.SysFont("Arial", 20).render("Score: " + str(score), True, (255,255,255))
+        self.screen.blit(txt, (5,8))
 
     def printgridlines(self):
         #grid lines
