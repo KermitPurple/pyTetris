@@ -53,7 +53,7 @@ class game:
     def __init__(self, sz=(450,600), scl=30):
         pygame.display.init()
         self.screen = pygame.display.set_mode(size=sz)
-        self.running = True
+        self.running = False
         self.scl = scl
         self.pos = coord(4,0)
         self.holdready = True
@@ -278,6 +278,7 @@ class game:
         #game loop
         pygame.key.set_repeat(80)
         self.fillqueue()
+        self.running = True
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
