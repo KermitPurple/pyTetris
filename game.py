@@ -264,6 +264,16 @@ class game:
                 color = self.selectcolor(ch)
                 self.printblock(point, color)
 
+    def clearlines(self):
+        for i, line in enumerate(self.grid):
+            full = True            
+            for ch in line:
+                if ch == '.':
+                    full = False
+            if full:
+                _ = self.grid.pop(i)
+                self.grid.insert(0, ['.','.','.','.','.','.','.','.','.','.',])
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -288,6 +298,7 @@ class game:
                     elif event.unicode == ' ':
                         self.swaphold()
             self.screen.fill((0,0,0)) #clear screen
+            self.clearlines()
             self.printgrid()
             self.printqueue()
             self.printhold()
