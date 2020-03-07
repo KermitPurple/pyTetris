@@ -52,6 +52,7 @@ class game:
 
     def __init__(self, sz=(450,600), scl=30):
         pygame.display.init()
+        self.tiks = 0
         self.screen = pygame.display.set_mode(size=sz)
         self.running = False
         self.scl = scl
@@ -276,6 +277,12 @@ class game:
                 _ = self.grid.pop(i)
                 self.grid.insert(0, ['.','.','.','.','.','.','.','.','.','.',])
 
+    def tik(self):
+        self.tiks += 1
+        if self.tiks > 100000:
+            self.tiks = 0
+        sleep(0.02)
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -307,4 +314,3 @@ class game:
             self.printhold()
             self.printpeice()
             pygame.display.update()
-            sleep(0.02)
