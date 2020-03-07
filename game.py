@@ -50,7 +50,7 @@ class game:
 	],
         ]
 
-    def __init__(self, sz=(300,600), scl=30):
+    def __init__(self, sz=(450,600), scl=30):
         pygame.display.init()
         self.screen = pygame.display.set_mode(size=sz)
         self.running = True
@@ -220,10 +220,20 @@ class game:
             return (255, 153, 0)
         elif ch == 'J':
             return (0, 13, 255)
+        return (0, 0, 0)
 
     def instadrop(self):
         while self.move(coord(0,1)):
             pass
+
+    def printqueue(self):
+        pygame.draw.line(self.screen, (255,255,255), (300, 0), (300,600), 3)
+        for n, item in enumerate(self.queue):
+            for i, line in enumerate(item):
+                for j, ch in enumerate(line):
+                    point = coord(315 + j * self.scl,15 + 150 * n + i * self.scl)
+                    color = self.selectcolor(ch)
+                    self.printblock(point, color)
 
     def play(self):
         #game loop
@@ -250,6 +260,7 @@ class game:
                         self.lock()
             self.screen.fill((0,0,0)) #clear screen
             self.printgrid()
+            self.printqueue()
             self.printpeice()
             pygame.display.update()
             sleep(0.02)
