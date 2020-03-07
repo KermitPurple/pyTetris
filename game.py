@@ -144,13 +144,15 @@ class game:
                     color = self.selectcolor(ch)
                     self.printblock(coord(real.x, real.y), color)
 
-    def collision(self):
+    def collision(self, pos=None):
+        if pos is None:
+            pos = self.pos
         for i, line in enumerate(self.peice):
             for j, ch in enumerate(line):
                 if ch != '.':
-                    if self.pos.x + j < 0 or self.pos.x + j > 9 or self.pos.y + i > 19:
+                    if pos.x + j < 0 or pos.x + j > 9 or pos.y + i > 19:
                         return True
-                    elif self.grid[self.pos.y + i][self.pos.x + j] != '.':
+                    elif self.grid[pos.y + i][pos.x + j] != '.':
                         return True
         return False
 
@@ -315,6 +317,21 @@ class game:
         pygame.draw.line(self.screen, (255,255,255), (0, self.sz[1]), (10 * self.scl, self.sz[1]),3)
         pygame.draw.line(self.screen, (255,255,255), (0, self.offset.y), (0, self.sz[1]),3)
 
+    def printshadow(self):
+        shadowpos = coord(self.pos.x, self.pos.y)
+        while 1:
+            shadowpos.y += 1
+            if self.collision(shadowpos):
+                shadowpos.y -= 1
+                break
+        for i, line in enumerate(self.peice):
+            for j, ch in enumerate(line):
+                if ch != '.':
+                    real = coord((shadowpos.x + j) * self.scl, (shadowpos.y + i ) * self.scl + self.offset.y)
+                    color = self.selectcolor(ch)
+                    self.printblock(coord(real.x, real.y), color)
+
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -348,6 +365,7 @@ class game:
             self.printgrid()
             self.printqueue()
             self.printhold()
+            self.printshadow()
             self.printpeice()
             self.printgridlines()
             pygame.display.update()
