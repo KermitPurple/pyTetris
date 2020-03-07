@@ -243,7 +243,7 @@ class game:
         for n, item in enumerate(self.queue):
             for i, line in enumerate(item):
                 for j, ch in enumerate(line):
-                    point = coord(315 + j * self.scl,15 + 150 * (n+1) + i * self.scl)
+                    point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15)
                     color = self.selectcolor(ch)
                     self.printblock(point, color)
 
