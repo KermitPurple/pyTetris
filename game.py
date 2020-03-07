@@ -189,6 +189,12 @@ class game:
                     self.grid[i + self.pos.y][j + self.pos.x] = ch
         self.getnextpeice()
 
+    def printgrid(self):
+        for i, line in enumerate(self.grid):
+            for j, ch in enumerate(line):
+                if ch != '.':
+                    self.printblock(coord(j * self.scl, i* self.scl))
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -211,6 +217,7 @@ class game:
                     elif event.unicode == 'g':
                         self.getnextpeice()
             self.screen.fill((0,0,0)) #clear screen
+            self.printgrid()
             self.printpeice()
             pygame.display.update()
             sleep(0.02)
