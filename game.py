@@ -67,9 +67,9 @@ class game:
 
     def play(self):
         #game loop
-        x = 0
         pygame.key.set_repeat(80)
         p = peice(self.screen, self.scl, self.grid, self.queue, coord(4,0))
+        p.fillqueue()
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -85,6 +85,8 @@ class game:
                         p.rotate('l')
                     elif event.unicode == 'e':
                         p.rotate('r')
+                    elif event.unicode == 'g':
+                        p.getnextpeice()
             self.screen.fill((0,0,0)) #clear screen
             p.printpeice()
             pygame.display.update()

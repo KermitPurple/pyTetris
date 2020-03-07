@@ -1,5 +1,6 @@
 import pygame
 from coord import coord
+from random import randint
 
 class peice:
     peices = [
@@ -113,18 +114,21 @@ class peice:
                 self.rotate('r')
 
     def getnextpeice(self):
-        pass
+        self.peice = self.queue.pop(0)
+        self.queue.append(self.getrandpeice())
 
     def getrandpeice(self):
-        pass
+        return self.peices[randint(0,6)]                
     
     def fillqueue(self):
-        empty = [
-		"....",
-		"....",
-		"....",
-		"....",
-                ]
+        new_queue = []
         for item in self.queue:
-            if item != empty:
-                item = self.getrandpeice()
+             new_queue.append(self.getrandpeice())
+        self.queue = new_queue
+
+    def lock(self):
+        for i, line in enumerate(self.peice):
+            for j, ch in enumerate(line):
+                if ch != '.':
+                    self.grid[i + self.pos.y][j + self.pos.x] = ch
+        self.getnextpeice()
