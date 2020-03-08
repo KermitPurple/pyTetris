@@ -224,7 +224,7 @@ class game:
         self.getnextpeice()
         self.pos = coord(4,0)
         if self.collision():
-            self.running = False
+            self.endgame()
 
     def printgrid(self):
         for i, line in enumerate(self.grid):
@@ -373,6 +373,11 @@ class game:
                 elif self.speed == 1:
                     self.lockrate = 20
 
+    def endgame(self):
+        print(60 * "=")
+        print("FINAL SCORE:",self.score)
+        self.running = False
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
@@ -384,7 +389,7 @@ class game:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.endgame()
                 elif event.type == pygame.KEYDOWN:
                     if event.unicode == 'p' or event.unicode == '\x1b':
                         self.pause()
