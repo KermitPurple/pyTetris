@@ -60,7 +60,7 @@ class game:
         self.scl = scl
         self.pos = coord(4,0)
         self.holdready = True
-        self.speed = 20
+        self.speed = 21 # will actually be twenty because it tiks down immedately by one
         self.offset = coord(150, 40)
         self.score = 0
         self.level = 1
@@ -319,6 +319,9 @@ class game:
         # Hold
         txt = pygame.font.SysFont("Arial", 30).render("HOLD", True, (255,255,255))
         self.screen.blit(txt, (345,3))
+        # speed
+        txt = pygame.font.SysFont("Arial", 20).render("Speed: " + str(self.speed), True, (255,255,255))
+        self.screen.blit(txt, (150,8))
 
     def printgridlines(self):
         #grid lines
