@@ -63,6 +63,9 @@ class game:
         self.speed = 20
         self.offset = coord(150, 40)
         self.score = 0
+        self.level = 1
+        self.lockrate = 0
+        self.locktries = 0
         self.paused = False
         self.hold = [
                 ['.','.','.','.'],
@@ -157,7 +160,7 @@ class game:
                         return True
         return False
 
-    def move(self, change):
+    def move(self, change, auto = False):
         down = False
         if change == coord(0,1):
             down = True
@@ -167,7 +170,13 @@ class game:
             self.pos.x -= change.x
             self.pos.y -= change.y
             if down:
-                self.lock()
+                if not auto:
+                    self.lock()
+                elif self.locktries >= self.lockrate:
+                    self.lock()
+                    self.locktries = 0
+                else:
+                    self.locktries += 1
             return False
         return True
 
@@ -344,12 +353,31 @@ class game:
         txtwidth = txt.get_width()
         self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
 
+    def increasespeed(self):
+        if self.tiks % 6000 == 0:
+            self.speed -= 1
+            if self.speed <= 1:
+                self.speed = 1
+            if self.speed <= 5:
+                if self.speed == 5:
+                    self.lockrate = 2
+                elif self.speed == 4:
+                    self.lockrate = 5
+                elif self.speed == 3:
+                    self.lockrate = 7
+                elif self.speed == 2:
+                    self.lockrate = 10
+                elif self.speed == 1:
+                    self.lockrate = 20
+
     def play(self):
         #game loop
         pygame.key.set_repeat(80)
         self.fillqueue()
         self.running = True
         self.paused = False
+        self.score = 0
+        self.level = 1
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -376,7 +404,7 @@ class game:
             if not self.paused:
                 self.screen.fill((0,0,0)) #clear screen
                 if self.tiks % self.speed == 0:
-                    self.move(coord(0,1))
+                    self.move(coord(0,1), True)
                 self.clearlines()
                 self.printtop()
                 self.printgrid()
@@ -385,6 +413,7 @@ class game:
                 self.printshadow()
                 self.printpeice()
                 self.printgridlines()
+                self.increasespeed()
             pygame.display.update()
             self.tik()
 
