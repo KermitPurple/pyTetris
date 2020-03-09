@@ -424,6 +424,7 @@ class game:
                 self.increasespeed()
             pygame.display.update()
             self.tik()
+        pygame.display.quit()
 
     def printcontrols(self):
         print("W - Instant drop")
