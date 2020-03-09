@@ -67,6 +67,7 @@ class game:
         self.lockrate = 0
         self.locktries = 0
         self.paused = False
+        self.peice = self.getrandpeice()
         self.hold = [
                 ['.','.','.','.'],
                 ['.','.','.','.'],
@@ -94,12 +95,6 @@ class game:
                 ['.','.','.','.','.','.','.','.','.','.'],
                 ['.','.','.','.','.','.','.','.','.','.'],
                 ['.','.','.','.','.','.','.','.','.','.'],
-                ]
-        self.peice = [
-                ".T..",
-                ".TT.",
-                ".T..",
-                "....",
                 ]
         self.queue = [
             [
