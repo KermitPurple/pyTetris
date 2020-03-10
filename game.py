@@ -67,6 +67,7 @@ class game:
         self.lockrate = 0
         self.locktries = 0
         self.paused = False
+        self.chain = 0
         self.peice = self.getrandpeice()
         self.hold = [
                 ['.','.','.','.'],
@@ -290,14 +291,18 @@ class game:
                 _ = self.grid.pop(i)
                 self.grid.insert(0, ['.','.','.','.','.','.','.','.','.','.',])
                 cleared += 1
-            if cleared == 1:
-                self.score += 100
-            elif cleared == 2:
-                self.score += 200
-            elif cleared == 3:
-                self.score += 400
-            elif cleared == 4:
-                self.score += 1600
+            if cleared > 0:
+                self.chain += 1
+                if cleared == 1:
+                    self.score += 100 * self.chain
+                elif cleared == 2:
+                    self.score += 400 * self.chain
+                elif cleared == 3:
+                    self.score += 800 * self.chain
+                elif cleared == 4:
+                    self.score += 1600 * self.chain
+            else:
+                self.chain = 0
 
     def tik(self):
         self.tiks += 1
