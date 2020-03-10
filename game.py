@@ -352,14 +352,14 @@ class game:
         self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
 
     def increasespeed(self):
-        if self.tiks % 6000 == 0:
+        if self.tiks % 1500 == 0:
             self.speed -= 1
             if self.speed <= 1:
                 self.speed = 1
-            if self.speed <= 5:
-                if self.speed == 5:
-                    self.lockrate = 2
-                elif self.speed == 4:
+            if self.speed >= 5:
+                self.lockrate = 2
+            else:
+                if self.speed == 4:
                     self.lockrate = 5
                 elif self.speed == 3:
                     self.lockrate = 7
