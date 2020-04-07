@@ -289,7 +289,8 @@ class game:
 		pygame.draw.line(self.screen, (255,255,255), (300, 135 + self.offset.y), (450, 135 + self.offset.y), 3)
 		for i, line in enumerate(self.hold):
 			for j, ch in enumerate(line):
-				point = coord(315 + j * self.scl,14 + i * self.scl + self.offset.y)
+				lengthOffset = self.scl * (4 - len(line)) / 2
+				point = coord(lengthOffset + 315 + j * self.scl,14 + i * self.scl + self.offset.y + lengthOffset)
 				color = self.selectcolor(ch)
 				self.printblock(point, color)
 
