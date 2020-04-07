@@ -25,10 +25,9 @@ class game:
 		"....",
 	],
 	[
-		"..T.",
-		".TT.",
-		"..T.",
-		"....",
+		".T.",
+		"TT.",
+		".T.",
 	],
 	[
 		"....",
@@ -177,23 +176,35 @@ class game:
 		return True
 
 	def rotate(self, ch, recur=True):
-		temp = [
-				['.','.','.','.'],
-				['.','.','.','.'],
-				['.','.','.','.'],
-				['.','.','.','.'],
-				]
+		length = len(self.peice)
+		print(length)
+		for line in self.peice:
+			print(line)
+		if length == 4:
+			temp = [
+					['.','.','.','.'],
+					['.','.','.','.'],
+					['.','.','.','.'],
+					['.','.','.','.'],
+					]
+		else:
+			temp = [
+					['.','.','.'],
+					['.','.','.'],
+					['.','.','.'],
+					]
+		length = 3
 		if ch == 'r':
-			for i in range(4):
-				for j in range(4):
-					temp[i][j] = self.peice[3 - j][i]
+			for i in range(length):
+				for j in range(length):
+					temp[i][j] = self.peice[length - 1 - j][i]
 			self.peice = temp
 			if self.collision() and recur:
 				self.rotate('l', False)
 		elif ch == 'l':
-			for i in range(4):
-				for j in range(4):
-					temp[i][j] = self.peice[j][3 - i]
+			for i in range(length):
+				for j in range(length):
+					temp[i][j] = self.peice[j][length - 1 - i]
 			self.peice = temp
 			if self.collision() and recur:
 				self.rotate('r', False)
