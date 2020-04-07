@@ -8,10 +8,10 @@ class game:
 
 	peices = [
 	[
-		".I..",
-		".I..",
-		".I..",
-		".I..",
+		"....",
+		"IIII",
+		"....",
+		"....",
 	],
 	[
 		".S..",
@@ -260,14 +260,16 @@ class game:
 			self.score += 5
 
 	def printqueue(self):
+		queuescl = 20
 		pygame.draw.line(self.screen, (255,255,255), (300, self.offset.y), (300,600+ self.offset.y), 3)
 		for n, item in enumerate(self.queue):
 			for i, line in enumerate(item):
 				for j, ch in enumerate(line):
 					if ch != '.':
-						point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15 + self.offset.y)
+						lengthOffset = queuescl * (3 - len(item))
+						point = coord(lengthOffset + 345 + j * queuescl ,queuescl + 150 + 90 * n + i * queuescl + self.offset.y + lengthOffset)
 						color = self.selectcolor(ch)
-						self.printblock(point, color,15)
+						self.printblock(point, color,queuescl)
 
 	def swaphold(self):
 		if self.holdready:
