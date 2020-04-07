@@ -1,4 +1,5 @@
 import pygame
+from os import system
 from coord import coord
 from time import sleep
 from random import randint
@@ -133,8 +134,10 @@ class game:
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
 
-	def printblock(self, real, color):
-		pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, self.scl, self.scl))    
+	def printblock(self, real, color, scl = None):
+		if scl == None:
+			scl = self.scl
+		pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, scl, scl))    
 
 	def printpeice(self):
 		for i, line in enumerate(self.peice):
@@ -261,13 +264,14 @@ class game:
 			self.score += 5
 
 	def printqueue(self):
-		pygame.draw.line(self.screen, (255,255,255), (300, 0+ self.offset.y), (300,600+ self.offset.y), 3)
+		pygame.draw.line(self.screen, (255,255,255), (300, self.offset.y), (300,600+ self.offset.y), 3)
 		for n, item in enumerate(self.queue):
 			for i, line in enumerate(item):
 				for j, ch in enumerate(line):
-					point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15 + self.offset.y)
-					color = self.selectcolor(ch)
-					self.printblock(point, color)
+					if ch != '.':
+						point = coord(345 + j * 15 ,15 + 150 + 90 * n + i * 15 + self.offset.y)
+						color = self.selectcolor(ch)
+						self.printblock(point, color,15)
 
 	def swaphold(self):
 		if self.holdready:
