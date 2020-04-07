@@ -405,23 +405,23 @@ class game:
 				if event.type == pygame.QUIT:
 					self.endgame()
 				elif event.type == pygame.KEYDOWN:
-					if event.unicode == 'p' or event.unicode == '\x1b':
+					if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
 						self.pause()
 					if not self.paused:
-						if event.unicode == 'w':
+						if event.unicode.lower() == 'w':
 							self.instadrop()
-						elif event.unicode == 'a':
+						elif event.unicode.lower() == 'a':
 							self.move(coord(-1,0))
-						elif event.unicode == 's':
+						elif event.unicode.lower() == 's':
 							self.move(coord(0,1))
 							self.score += 5
-						elif event.unicode == 'd':
+						elif event.unicode.lower() == 'd':
 							self.move(coord(1,0))
-						elif event.unicode == 'q':
+						elif event.unicode.lower() == 'q':
 							self.rotate('l')
-						elif event.unicode == 'e':
+						elif event.unicode.lower() == 'e':
 							self.rotate('r')
-						elif event.unicode == ' ':
+						elif event.unicode.lower() == ' ':
 							self.swaphold()
 			if not self.paused:
 				self.screen.fill((0,0,0)) #clear screen
@@ -448,3 +448,4 @@ class game:
 		print("Q - rotate left")
 		print("E - rotate right")
 		print("<SPACE> - Swap hold")
+		print("<ESC>, P - Pause / unPause")
