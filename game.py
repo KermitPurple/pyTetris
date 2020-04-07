@@ -67,6 +67,7 @@ class game:
 		self.locktries = 0
 		self.paused = False
 		self.chain = 0
+		self.peiceLength = 4
 		self.peice = self.getrandpeice()
 		self.hold = [
 				['.','.','.','.'],
@@ -176,41 +177,39 @@ class game:
 		return True
 
 	def rotate(self, ch, recur=True):
-		length = len(self.peice)
-		print(length)
-		for line in self.peice:
-			print(line)
-		if length == 4:
+		if self.peiceLength == 4:
 			temp = [
 					['.','.','.','.'],
 					['.','.','.','.'],
 					['.','.','.','.'],
 					['.','.','.','.'],
+					]
+		elif self.peiceLength == 3:
+			temp = [
+					['.','.','.'],
+					['.','.','.'],
+					['.','.','.'],
 					]
 		else:
-			temp = [
-					['.','.','.'],
-					['.','.','.'],
-					['.','.','.'],
-					]
-		length = 3
+			return
 		if ch == 'r':
-			for i in range(length):
-				for j in range(length):
-					temp[i][j] = self.peice[length - 1 - j][i]
+			for i in range(self.peiceLength):
+				for j in range(self.peiceLength):
+					temp[i][j] = self.peice[self.peiceLength - 1 - j][i]
 			self.peice = temp
 			if self.collision() and recur:
 				self.rotate('l', False)
 		elif ch == 'l':
-			for i in range(length):
-				for j in range(length):
-					temp[i][j] = self.peice[j][length - 1 - i]
+			for i in range(self.peiceLength):
+				for j in range(self.peiceLength):
+					temp[i][j] = self.peice[j][self.peiceLength - 1 - i]
 			self.peice = temp
 			if self.collision() and recur:
 				self.rotate('r', False)
 
 	def getnextpeice(self):
 		self.peice = self.queue.pop(0)
+		self.peiceLength = len(self.peice)
 		self.queue.append(self.getrandpeice())
 
 	def getrandpeice(self):
@@ -282,6 +281,7 @@ class game:
 						empty = False
 			if empty:
 				self.getnextpeice()
+			self.peiceLength = len(self.peice)
 
 	def printhold(self):
 		pygame.draw.line(self.screen, (255,255,255), (300, 135 + self.offset.y), (450, 135 + self.offset.y), 3)
