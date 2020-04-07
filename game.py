@@ -64,8 +64,8 @@ class game:
 		self.locktries = 0
 		self.paused = False
 		self.chain = 0
-		self.peiceLength = 4
 		self.peice = self.getrandpeice()
+		self.peiceLength = len(self.peice)
 		self.hold = [
 				['.','.','.','.'],
 				['.','.','.','.'],
