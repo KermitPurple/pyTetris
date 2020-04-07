@@ -266,7 +266,7 @@ class game:
 			for i, line in enumerate(item):
 				for j, ch in enumerate(line):
 					if ch != '.':
-						lengthOffset = queuescl * (3 - len(item))
+						lengthOffset = queuescl * (3 - len(item)) / 2
 						point = coord(lengthOffset + 345 + j * queuescl ,queuescl + 150 + 90 * n + i * queuescl + self.offset.y + lengthOffset)
 						color = self.selectcolor(ch)
 						self.printblock(point, color,queuescl)
