@@ -70,12 +70,6 @@ class game:
 		self.hold = [['.' for j in range(0, 4)] for i in range(0, 4)]
 		self.grid = [['.' for j in range(0, 10)] for i in range(0, 20)]
 		self.queue = [[['.' for k in range(0, 4)] for j in range(0, 4)] for i in range(0,5)]
-		for i in range(0, 5):
-			self.queue.append([])
-			for j in range(0, 4):
-				self.queue[i].append([])
-				for k in range(0, 4):
-					self.queue[i][j].append('.')
 		pygame.key.set_repeat(80)
 		self.fillqueue()
 		self.paused = False
