@@ -266,7 +266,7 @@ class game:
 					full = False
 			if full:
 				_ = self.grid.pop(i)
-				self.grid.insert(0, ['.','.','.','.','.','.','.','.','.','.',])
+				self.grid.insert(0, ['.' for _ in range(0, 10)])
 				cleared += 1
 			if cleared > 0:
 				self.chain += 1
