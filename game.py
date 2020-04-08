@@ -349,7 +349,8 @@ class game:
 				self.clearlines()
 				if self.tiks % self.speed == 0:
 					self.move(coord(0,1), True)
-				self.render()
+				if not self.gameover:
+					self.render()
 			pygame.display.update()
 			self.tik()
 			for event in pygame.event.get():
