@@ -51,7 +51,7 @@ class game:
 		pygame.font.init()
 		self.tiks = 0
 		self.screen = pygame.display.set_mode(size=sz)
-		self.running = False
+		self.running = True
 		self.sz = sz
 		self.scl = scl
 		self.pos = coord(4,0)
@@ -66,6 +66,7 @@ class game:
 		self.chain = 0
 		self.peice = self.getrandpeice()
 		self.peiceLength = len(self.peice)
+		self.gameover = False
 		self.hold = [
 				['.','.','.','.'],
 				['.','.','.','.'],
@@ -126,6 +127,11 @@ class game:
 					"....",
 			],
 			]
+		pygame.key.set_repeat(80)
+		self.fillqueue()
+		self.paused = False
+		self.score = 0
+		self.level = 1
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
@@ -388,42 +394,43 @@ class game:
 					self.lockrate = 20
 
 	def endgame(self):
-		print(60 * "=")
-		print("FINAL SCORE:",self.score)
-		self.running = False
+		txt = pygame.font.SysFont("Arial", 60).render("GAME OVER", True, (255,255,255))
+		txtwidth = txt.get_width()
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
+		self.gameover = True
 
 	def play(self):
 		#game loop
-		pygame.key.set_repeat(80)
-		self.fillqueue()
-		self.running = True
-		self.paused = False
-		self.score = 0
-		self.level = 1
 		while self.running:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
-					self.endgame()
+					self.running = False
 				elif event.type == pygame.KEYDOWN:
-					if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
-						self.pause()
-					if not self.paused:
-						if event.unicode.lower() == 'w':
-							self.instadrop()
-						elif event.unicode.lower() == 'a':
-							self.move(coord(-1,0))
-						elif event.unicode.lower() == 's':
-							self.move(coord(0,1))
-							self.score += 5
-						elif event.unicode.lower() == 'd':
-							self.move(coord(1,0))
-						elif event.unicode.lower() == 'q':
-							self.rotate('l')
-						elif event.unicode.lower() == 'e':
-							self.rotate('r')
-						elif event.unicode.lower() == ' ':
-							self.swaphold()
-			if not self.paused:
+					if not self.gameover:
+						if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
+							self.pause()
+						if not self.paused:
+							if event.unicode.lower() == 'w':
+								self.instadrop()
+							elif event.unicode.lower() == 'a':
+								self.move(coord(-1,0))
+							elif event.unicode.lower() == 's':
+								self.move(coord(0,1))
+								self.score += 5
+							elif event.unicode.lower() == 'd':
+								self.move(coord(1,0))
+							elif event.unicode.lower() == 'q':
+								self.rotate('l')
+							elif event.unicode.lower() == 'e':
+								self.rotate('r')
+							elif event.unicode.lower() == ' ':
+								self.swaphold()
+					else:
+						if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
+							self.running = False
+						elif event.unicode.lower() == 'r':
+							self.__init__()
+			if not self.paused and not self.gameover:
 				self.screen.fill((0,0,0)) #clear screen
 				if self.tiks % self.speed == 0:
 					self.move(coord(0,1), True)
