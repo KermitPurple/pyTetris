@@ -139,21 +139,9 @@ class game:
 		return True
 
 	def rotate(self, ch, recur=True):
-		if self.peiceLength == 4:
-			temp = [
-					['.','.','.','.'],
-					['.','.','.','.'],
-					['.','.','.','.'],
-					['.','.','.','.'],
-					]
-		elif self.peiceLength == 3:
-			temp = [
-					['.','.','.'],
-					['.','.','.'],
-					['.','.','.'],
-					]
-		else:
+		if self.peiceLength == 2:
 			return
+		temp = [['.' for j in range(0, self.peiceLength)] for i in range(0,self.peiceLength)]
 		if ch == 'r':
 			for i in range(self.peiceLength):
 				for j in range(self.peiceLength):
