@@ -396,8 +396,11 @@ class game:
 	def endgame(self):
 		self.render()
 		txt = pygame.font.SysFont("Arial", 60).render("GAME OVER", True, (255,255,255))
-		txtwidth = txt.get_width()
-		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 75,300))
+		txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 10, 365))
+		txt = pygame.font.SysFont("Arial", 30).render("Press 'r' to restart", True, (255,255,255))
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 22, 395))
 		self.gameover = True
 
 	def play(self):
