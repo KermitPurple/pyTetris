@@ -373,8 +373,13 @@ class game:
 	def pause(self):
 		self.paused = not self.paused
 		txt = pygame.font.SysFont("Arial", 60).render("PAUSED", True, (255,255,255))
-		txtwidth = txt.get_width()
 		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
+		txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 10, 365))
+		txt = pygame.font.SysFont("Arial", 30).render("Press 'r' to restart", True, (255,255,255))
+		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 22, 395))
+		txt = pygame.font.SysFont("Arial", 28).render("Press <ESC> or 'p' to resume", True, (255,255,255))
+		self.screen.blit(txt, (0, 425))
 
 	def increasespeed(self):
 		if self.tiks % 1500 == 0:
@@ -445,6 +450,10 @@ class game:
 		if not self.gameover:
 			if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
 				self.pause()
+			elif event.unicode.lower() == 'q':
+				self.running = False
+			elif event.unicode.lower() == 'r':
+				self.__init__()
 			if not self.paused:
 				if event.unicode.lower() == 'w':
 					self.instadrop()
