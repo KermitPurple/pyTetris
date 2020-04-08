@@ -46,7 +46,7 @@ class game:
 	],
 ]
 
-	def __init__(self):
+	def __init__(self, randomPeices = True):
 		pygame.display.init()
 		pygame.font.init()
 		self.tiks = 0
@@ -75,6 +75,7 @@ class game:
 		self.paused = False
 		self.score = 0
 		self.level = 1
+		self.randomPeices = randomPeices
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
