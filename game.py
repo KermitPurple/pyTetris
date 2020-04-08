@@ -387,12 +387,12 @@ class game:
 			elif event.unicode.lower() == 'q':
 				self.running = False
 			elif event.unicode.lower() == 'r':
-				self.__init__()
+				self.__init__(self.grabBag)
 		elif self.gameover:
 			if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
 				self.running = False
 			elif event.unicode.lower() == 'r':
-				self.__init__()
+				self.__init__(self.grabBag)
 		else:
 			if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
 				self.pause()
