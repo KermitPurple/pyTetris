@@ -2,7 +2,7 @@ import pygame
 from os import system
 from coord import coord
 from time import sleep
-from random import choice
+from random import choice, randrange
 
 class game:
 
@@ -46,7 +46,7 @@ class game:
 	],
 ]
 
-	def __init__(self, randomPeices = True):
+	def __init__(self, grabBag = False):
 		pygame.display.init()
 		pygame.font.init()
 		self.tiks = 0
@@ -64,6 +64,8 @@ class game:
 		self.locktries = 0
 		self.paused = False
 		self.chain = 0
+		self.grabBag = grabBag
+		self.remainingPeices = self.peices.copy()
 		self.peice = self.getrandpeice()
 		self.peiceLength = len(self.peice)
 		self.gameover = False
@@ -75,7 +77,6 @@ class game:
 		self.paused = False
 		self.score = 0
 		self.level = 1
-		self.randomPeices = randomPeices
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
@@ -150,7 +151,11 @@ class game:
 		self.queue.append(self.getrandpeice())
 
 	def getrandpeice(self):
-		return choice(self.peices)
+		if not self.grabBag:
+			return choice(self.peices)
+		if len(self.remainingPeices) == 0:
+			self.remainingPeices = self.peices.copy()
+		return self.remainingPeices.pop(randrange(0, len(self.remainingPeices)))
 	
 	def fillqueue(self):
 		self.queue = [self.getrandpeice() for item in self.queue]
