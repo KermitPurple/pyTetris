@@ -414,30 +414,7 @@ class game:
 				if event.type == pygame.QUIT:
 					self.running = False
 				elif event.type == pygame.KEYDOWN:
-					if not self.gameover:
-						if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
-							self.pause()
-						if not self.paused:
-							if event.unicode.lower() == 'w':
-								self.instadrop()
-							elif event.unicode.lower() == 'a':
-								self.move(coord(-1,0))
-							elif event.unicode.lower() == 's':
-								self.move(coord(0,1))
-								self.score += 5
-							elif event.unicode.lower() == 'd':
-								self.move(coord(1,0))
-							elif event.unicode.lower() == 'q':
-								self.rotate('l')
-							elif event.unicode.lower() == 'e':
-								self.rotate('r')
-							elif event.unicode.lower() == ' ':
-								self.swaphold()
-					else:
-						if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
-							self.running = False
-						elif event.unicode.lower() == 'r':
-							self.__init__()
+					self.kbin(event)
 		pygame.display.quit()
 
 	def printcontrols(self):
@@ -460,3 +437,29 @@ class game:
 		self.printpeice()
 		self.printgridlines()
 		self.increasespeed()
+
+	def kbin(self, event):
+		if not self.gameover:
+			if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
+				self.pause()
+			if not self.paused:
+				if event.unicode.lower() == 'w':
+					self.instadrop()
+				elif event.unicode.lower() == 'a':
+					self.move(coord(-1,0))
+				elif event.unicode.lower() == 's':
+					self.move(coord(0,1))
+					self.score += 5
+				elif event.unicode.lower() == 'd':
+					self.move(coord(1,0))
+				elif event.unicode.lower() == 'q':
+					self.rotate('l')
+				elif event.unicode.lower() == 'e':
+					self.rotate('r')
+				elif event.unicode.lower() == ' ':
+					self.swaphold()
+		else:
+			if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
+				self.running = False
+			elif event.unicode.lower() == 'r':
+				self.__init__()
