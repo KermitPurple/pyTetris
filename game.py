@@ -46,14 +46,14 @@ class game:
 	],
 ]
 
-	def __init__(self, sz=(450,640), scl=30):
+	def __init__(self):
 		pygame.display.init()
 		pygame.font.init()
 		self.tiks = 0
-		self.screen = pygame.display.set_mode(size=sz)
+		self.sz = 450,640
+		self.screen = pygame.display.set_mode(size=self.sz)
 		self.running = True
-		self.sz = sz
-		self.scl = scl
+		self.scl = 30
 		self.pos = coord(4,0)
 		self.holdready = True
 		self.speed = 21 # will actually be twenty because it tiks down immedately by one
