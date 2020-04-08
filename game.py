@@ -2,7 +2,7 @@ import pygame
 from os import system
 from coord import coord
 from time import sleep
-from random import randint
+from random import choice
 
 class game:
 
@@ -149,7 +149,7 @@ class game:
 		self.queue.append(self.getrandpeice())
 
 	def getrandpeice(self):
-		return self.peices[randint(0,6)]                
+		return choice(self.peices)
 	
 	def fillqueue(self):
 		self.queue = [self.getrandpeice() for item in self.queue]
