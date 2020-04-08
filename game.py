@@ -394,6 +394,7 @@ class game:
 					self.lockrate = 20
 
 	def endgame(self):
+		self.render()
 		txt = pygame.font.SysFont("Arial", 60).render("GAME OVER", True, (255,255,255))
 		txtwidth = txt.get_width()
 		self.screen.blit(txt, (self.sz[0]/2 - self.offset.x - 20,300))
@@ -402,6 +403,13 @@ class game:
 	def play(self):
 		#game loop
 		while self.running:
+			if not self.paused and not self.gameover:
+				self.clearlines()
+				if self.tiks % self.speed == 0:
+					self.move(coord(0,1), True)
+				self.render()
+			pygame.display.update()
+			self.tik()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.running = False
@@ -430,21 +438,6 @@ class game:
 							self.running = False
 						elif event.unicode.lower() == 'r':
 							self.__init__()
-			if not self.paused and not self.gameover:
-				self.screen.fill((0,0,0)) #clear screen
-				if self.tiks % self.speed == 0:
-					self.move(coord(0,1), True)
-				self.clearlines()
-				self.printtop()
-				self.printgrid()
-				self.printqueue()
-				self.printhold()
-				self.printshadow()
-				self.printpeice()
-				self.printgridlines()
-				self.increasespeed()
-			pygame.display.update()
-			self.tik()
 		pygame.display.quit()
 
 	def printcontrols(self):
@@ -456,3 +449,14 @@ class game:
 		print("E - rotate right")
 		print("<SPACE> - Swap hold")
 		print("<ESC>, P - Pause / unPause")
+
+	def render(self):
+		self.screen.fill((0,0,0)) #clear screen
+		self.printtop()
+		self.printgrid()
+		self.printqueue()
+		self.printhold()
+		self.printshadow()
+		self.printpeice()
+		self.printgridlines()
+		self.increasespeed()
