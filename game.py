@@ -67,17 +67,9 @@ class game:
 		self.peice = self.getrandpeice()
 		self.peiceLength = len(self.peice)
 		self.gameover = False
-		self.hold = []
-		for i in range(0, 4):
-			self.hold.append([])
-			for j in range(0, 4):
-				self.hold[i].append('.')
-		self.grid = []
-		for i in range(0, 20):
-			self.grid.append([])
-			for j in range(0, 10):
-				self.grid[i].append('.')
-		self.queue = []
+		self.hold = [['.' for j in range(0, 4)] for i in range(0, 4)]
+		self.grid = [['.' for j in range(0, 10)] for i in range(0, 20)]
+		self.queue = [[['.' for k in range(0, 4)] for j in range(0, 4)] for i in range(0,5)]
 		for i in range(0, 5):
 			self.queue.append([])
 			for j in range(0, 4):
