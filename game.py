@@ -67,9 +67,9 @@ class game:
 		self.peice = self.getrandpeice()
 		self.peiceLength = len(self.peice)
 		self.gameover = False
-		self.hold = [['.' for j in range(0, 4)] for i in range(0, 4)]
-		self.grid = [['.' for j in range(0, 10)] for i in range(0, 20)]
-		self.queue = [[['.' for k in range(0, 4)] for j in range(0, 4)] for i in range(0,5)]
+		self.hold = self.matrix(4)
+		self.grid = self.matrix(10, 20)
+		self.queue = [self.matrix(4) for i in range(0, 5)]
 		pygame.key.set_repeat(80)
 		self.fillqueue()
 		self.paused = False
@@ -127,7 +127,7 @@ class game:
 	def rotate(self, ch, recur=True):
 		if self.peiceLength == 2:
 			return
-		temp = [['.' for j in range(0, self.peiceLength)] for i in range(0,self.peiceLength)]
+		temp = self.matrix(self.peiceLength)
 		if ch == 'r':
 			for i in range(self.peiceLength):
 				for j in range(self.peiceLength):
@@ -152,10 +152,7 @@ class game:
 		return self.peices[randint(0,6)]                
 	
 	def fillqueue(self):
-		new_queue = []
-		for item in self.queue:
-			 new_queue.append(self.getrandpeice())
-		self.queue = new_queue
+		self.queue = [self.getrandpeice() for item in self.queue]
 
 	def lock(self):
 		self.holdready = True
@@ -408,3 +405,8 @@ class game:
 				self.rotate('r')
 			elif event.unicode.lower() == ' ':
 				self.swaphold()
+
+	def matrix(self, w, h=None):
+		if h == None:
+			h = w
+		return [['.' for j in range(0, w)] for i in range(0, h)]
