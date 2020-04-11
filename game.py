@@ -104,7 +104,7 @@ class game:
 						return True
 		return False
 
-	def move(self, change, auto = False):
+	def move(self, change, auto = False, nolock = False):
 		down = False
 		if change == coord(0,1):
 			down = True
@@ -113,6 +113,8 @@ class game:
 		if self.collision():
 			self.pos.x -= change.x
 			self.pos.y -= change.y
+			if nolock:
+				return False
 			if down:
 				if not auto:
 					self.lock()
@@ -127,6 +129,14 @@ class game:
 	def rotate(self, ch, recur=True):
 		if self.peiceLength == 2:
 			return
+		valid_directions = [
+				coord(1, 1),
+				coord(-1, 1),
+				coord(1, 0),
+				coord(-1, 0),
+				coord(0, 1),
+				coord(0, -1),
+				]
 		temp = self.matrix(self.peiceLength)
 		if ch == 'r':
 			for i in range(self.peiceLength):
@@ -134,6 +144,9 @@ class game:
 					temp[i][j] = self.peice[self.peiceLength - 1 - j][i]
 			self.peice = temp
 			if self.collision() and recur:
+				for direction in valid_directions:
+					if self.move(direction, False, True):
+						return
 				self.rotate('l', False)
 		elif ch == 'l':
 			for i in range(self.peiceLength):
@@ -141,6 +154,9 @@ class game:
 					temp[i][j] = self.peice[j][self.peiceLength - 1 - i]
 			self.peice = temp
 			if self.collision() and recur:
+				for direction in valid_directions:
+					if self.move(direction, False, True):
+						return
 				self.rotate('r', False)
 
 	def getnextpeice(self):
