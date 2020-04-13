@@ -503,7 +503,6 @@ class game:
 		with open("config.txt") as f:
 			for line in f:
 				values.append(int(line[:-1]))
-		print(bool(values[0]))
 		self.grabBag = bool(values[0])
 
 	def WriteSettingsToFile(self):
