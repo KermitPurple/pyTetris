@@ -440,6 +440,8 @@ class game:
 		txt = pygame.font.SysFont("Arial", 20).render("Statistics", True, (255,255,255))
 		self.screen.blit(txt, (470, 10))
 		for n, item in enumerate(self.peices):
+			txt = pygame.font.SysFont("Arial", 20).render(str(self.record[n]), True, (255,255,255))
+			self.screen.blit(txt, (480, 193 + 70 * n))
 			for i, line in enumerate(item):
 				for j, ch in enumerate(line):
 					if ch != '.':
