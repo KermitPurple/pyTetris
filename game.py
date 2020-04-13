@@ -48,7 +48,7 @@ class game:
 		pygame.display.init()
 		pygame.font.init()
 		self.tiks = 0
-		self.sz = 450,640
+		self.sz = 550,640
 		self.screen = pygame.display.set_mode(size=self.sz)
 		self.running = True
 		self.scl = 30
@@ -63,6 +63,7 @@ class game:
 		self.paused = False
 		self.chain = 0
 		self.grabBag = grabBag
+		self.record = [0] * 7
 		self.remainingPeices = self.peices.copy()
 		self.peice = self.getrandpeice()
 		self.peiceLength = len(self.peice)
@@ -389,6 +390,7 @@ class game:
 		self.printtop()
 		self.printgrid()
 		self.printqueue()
+		self.printStats()
 		self.printhold()
 		self.printshadow()
 		self.printpeice()
@@ -431,3 +433,15 @@ class game:
 		if h == None:
 			h = w
 		return [['.' for j in range(0, w)] for i in range(0, h)]
+
+	def printStats(self):
+		statScale = 15
+		pygame.draw.line(self.screen, (255,255,255), (450, self.offset.y), (450, 600 + self.offset.y), 3)
+		for n, item in enumerate(self.peices):
+			for i, line in enumerate(item):
+				for j, ch in enumerate(line):
+					if ch != '.':
+						lengthOffset = statScale * (3 - len(item)) / 2
+						point = coord(lengthOffset + 480 + j * statScale , 10 + 80 * n + i * statScale + self.offset.y + lengthOffset)
+						color = self.selectcolor(ch)
+						self.printblock(point, color,statScale)
