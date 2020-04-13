@@ -492,3 +492,7 @@ class game:
 				values.append(int(line[:-1]))
 		print(bool(values[0]))
 		self.grabBag = bool(values[0])
+
+	def WriteSettingsToFile(self):
+		with open("config.txt", 'w') as f:
+			f.write(str(int(self.grabBag)) + '\n')
