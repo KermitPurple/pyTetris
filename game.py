@@ -80,6 +80,7 @@ class game:
 		self.linesCleared = 0
 		self.numOfTetris = 0
 		self.numOfClears = 0
+		self.shadowOn = True
 		self.readSettingsFromFile()
 
 	def realpos(self, x=0, y=0):
@@ -346,6 +347,11 @@ class game:
 		else:
 			txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (255,0,0))
 		self.screen.blit(txt, (15, 355))
+		if self.shadowOn:
+			txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (0,255,0))
+		else:
+			txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (255,0,0))
+		self.screen.blit(txt, (15, 385))
 
 	def increasespeed(self):
 		if self.tiks % 1500 == 0:
@@ -409,7 +415,8 @@ class game:
 		self.printqueue()
 		self.printStats()
 		self.printhold()
-		self.printshadow()
+		if self.shadowOn:
+			self.printshadow()
 		self.printpeice()
 		self.printgridlines()
 		self.increasespeed()
@@ -424,6 +431,11 @@ class game:
 				self.__init__()
 			elif event.unicode.lower() == 'g':
 				self.grabBag = not self.grabBag
+				self.WriteSettingsToFile()
+				self.render()
+				self.drawPause()
+			elif event.unicode.lower() == 's':
+				self.shadowOn = not self.shadowOn
 				self.WriteSettingsToFile()
 				self.render()
 				self.drawPause()
@@ -504,7 +516,9 @@ class game:
 			for line in f:
 				values.append(int(line[:-1]))
 		self.grabBag = bool(values[0])
+		self.shadowOn = bool(values[1])
 
 	def WriteSettingsToFile(self):
 		with open("config.txt", 'w') as f:
 			f.write(str(int(self.grabBag)) + '\n')
+			f.write(str(int(self.shadowOn)) + '\n')
