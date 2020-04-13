@@ -351,7 +351,7 @@ class game:
 			txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (0,255,0))
 		else:
 			txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (255,0,0))
-		self.screen.blit(txt, (15, 385))
+		self.screen.blit(txt, (18, 385))
 
 	def increasespeed(self):
 		if self.tiks % 1500 == 0:
