@@ -330,13 +330,13 @@ class game:
 	def pause(self):
 		self.paused = not self.paused
 		txt = pygame.font.SysFont("Arial", 60).render("PAUSED", True, (255,255,255))
-		self.screen.blit(txt, (205 - self.offset.x, 300))
+		self.screen.blit(txt, (205 - self.offset.x, 200))
 		txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
-		self.screen.blit(txt, (215 - self.offset.x, 365))
+		self.screen.blit(txt, (215 - self.offset.x, 265))
 		txt = pygame.font.SysFont("Arial", 30).render("Press 'r' to restart", True, (255,255,255))
-		self.screen.blit(txt, (203 - self.offset.x , 395))
+		self.screen.blit(txt, (203 - self.offset.x , 295))
 		txt = pygame.font.SysFont("Arial", 28).render("Press <ESC> or 'p' to resume", True, (255,255,255))
-		self.screen.blit(txt, (0, 425))
+		self.screen.blit(txt, (0, 325))
 
 	def increasespeed(self):
 		if self.tiks % 1500 == 0:
@@ -358,11 +358,11 @@ class game:
 	def endgame(self):
 		self.render()
 		txt = pygame.font.SysFont("Arial", 60).render("GAME OVER", True, (255,255,255))
-		self.screen.blit(txt, (150 - self.offset.x, 300))
+		self.screen.blit(txt, (150 - self.offset.x, 200))
 		txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
-		self.screen.blit(txt, (215 - self.offset.x, 365))
+		self.screen.blit(txt, (215 - self.offset.x, 265))
 		txt = pygame.font.SysFont("Arial", 30).render("Press 'r' to restart", True, (255,255,255))
-		self.screen.blit(txt, (203 - self.offset.x, 395))
+		self.screen.blit(txt, (203 - self.offset.x, 295))
 		self.gameover = True
 
 	def play(self):
