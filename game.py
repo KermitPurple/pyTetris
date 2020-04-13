@@ -80,6 +80,7 @@ class game:
 		self.linesCleared = 0
 		self.numOfTetris = 0
 		self.numOfClears = 0
+		self.readSettingsFromFile()
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
@@ -483,3 +484,11 @@ class game:
 					index = indexes[ch]
 					self.record[index] += 1
 					return
+
+	def readSettingsFromFile(self):
+		values = []
+		with open("config.txt") as f:
+			for line in f:
+				values.append(int(line[:-1]))
+		print(bool(values[0]))
+		self.grabBag = bool(values[0])
