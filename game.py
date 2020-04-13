@@ -435,7 +435,7 @@ class game:
 		return [['.' for j in range(0, w)] for i in range(0, h)]
 
 	def printStats(self):
-		statScale = 15
+		statScale = 10
 		pygame.draw.line(self.screen, (255,255,255), (450, self.offset.y), (450, 600 + self.offset.y), 3)
 		txt = pygame.font.SysFont("Arial", 20).render("Statistics", True, (255,255,255))
 		self.screen.blit(txt, (470, 10))
@@ -444,6 +444,6 @@ class game:
 				for j, ch in enumerate(line):
 					if ch != '.':
 						lengthOffset = statScale * (3 - len(item)) / 2
-						point = coord(lengthOffset + 480 + j * statScale , 10 + 80 * n + i * statScale + self.offset.y + lengthOffset)
+						point = coord(lengthOffset + 480 + j * statScale , 120 + 70 * n + i * statScale + self.offset.y + lengthOffset)
 						color = self.selectcolor(ch)
 						self.printblock(point, color,statScale)
