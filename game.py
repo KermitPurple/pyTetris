@@ -330,6 +330,9 @@ class game:
 
 	def pause(self):
 		self.paused = not self.paused
+		self.drawPause()
+
+	def drawPause(self):
 		txt = pygame.font.SysFont("Arial", 60).render("PAUSED", True, (255,255,255))
 		self.screen.blit(txt, (205 - self.offset.x, 200))
 		txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
@@ -338,6 +341,11 @@ class game:
 		self.screen.blit(txt, (203 - self.offset.x , 295))
 		txt = pygame.font.SysFont("Arial", 28).render("Press <ESC> or 'p' to resume", True, (255,255,255))
 		self.screen.blit(txt, (0, 325))
+		if self.grabBag:
+			txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (0,255,0))
+		else:
+			txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (255,0,0))
+		self.screen.blit(txt, (15, 355))
 
 	def increasespeed(self):
 		if self.tiks % 1500 == 0:
@@ -414,6 +422,11 @@ class game:
 				self.running = False
 			elif event.unicode.lower() == 'r':
 				self.__init__(self.grabBag)
+			elif event.unicode.lower() == 'g':
+				self.grabBag = not self.grabBag
+				self.WriteSettingsToFile()
+				self.render()
+				self.drawPause()
 		elif self.gameover:
 			if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
 				self.running = False
