@@ -44,7 +44,7 @@ class game:
 	],
 ]
 
-	def __init__(self, grabBag = False):
+	def __init__(self):
 		pygame.display.init()
 		pygame.font.init()
 		self.tiks = 0
@@ -62,7 +62,7 @@ class game:
 		self.locktries = 0
 		self.paused = False
 		self.chain = 0
-		self.grabBag = grabBag
+		self.grabBag = True
 		self.record = [0] * 7
 		self.remainingPeices = self.peices.copy()
 		self.peice = self.getrandpeice()
@@ -421,7 +421,7 @@ class game:
 			elif event.unicode.lower() == 'q':
 				self.running = False
 			elif event.unicode.lower() == 'r':
-				self.__init__(self.grabBag)
+				self.__init__()
 			elif event.unicode.lower() == 'g':
 				self.grabBag = not self.grabBag
 				self.WriteSettingsToFile()
@@ -431,7 +431,7 @@ class game:
 			if event.unicode.lower() == '\x1b' or event.unicode.lower() == 'q':
 				self.running = False
 			elif event.unicode.lower() == 'r':
-				self.__init__(self.grabBag)
+				self.__init__()
 		else:
 			if event.unicode.lower() == 'p' or event.unicode.lower() == '\x1b':
 				self.pause()
