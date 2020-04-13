@@ -77,6 +77,7 @@ class game:
 		self.paused = False
 		self.score = 0
 		self.level = 1
+		self.linesCleared = 0
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
@@ -263,6 +264,7 @@ class game:
 				self.grid.insert(0, ['.' for _ in range(0, 10)])
 				cleared += 1
 		if cleared > 0:
+			self.linesCleared += cleared
 			self.chain += 1
 			if cleared == 1:
 				self.score += 100 * self.chain
