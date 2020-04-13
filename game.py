@@ -66,6 +66,7 @@ class game:
 		self.record = [0] * 7
 		self.remainingPeices = self.peices.copy()
 		self.peice = self.getrandpeice()
+		self.updateRecord()
 		self.peiceLength = len(self.peice)
 		self.gameover = False
 		self.hold = self.matrix(4)
@@ -182,6 +183,7 @@ class game:
 				if ch != '.':
 					self.grid[i + self.pos.y][j + self.pos.x] = ch
 		self.getnextpeice()
+		self.updateRecord()
 		self.pos = coord(4,0)
 		if self.collision():
 			self.endgame()
@@ -449,3 +451,20 @@ class game:
 						point = coord(lengthOffset + 480 + j * statScale , 120 + 70 * n + i * statScale + self.offset.y + lengthOffset)
 						color = self.selectcolor(ch)
 						self.printblock(point, color,statScale)
+	
+	def updateRecord(self):
+		indexes = {
+				'I': 0,
+				'S': 1,
+				'Z': 2,
+				'T': 3,
+				'O': 4,
+				'L': 5,
+				'J': 6,
+				}
+		for line in self.peice:
+			for ch in line:
+				if ch != '.':
+					index = indexes[ch]
+					self.record[index] += 1
+					return
