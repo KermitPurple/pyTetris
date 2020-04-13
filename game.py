@@ -78,6 +78,8 @@ class game:
 		self.score = 0
 		self.level = 1
 		self.linesCleared = 0
+		self.numOfTetris = 0
+		self.numOfClears = 0
 
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
@@ -265,6 +267,7 @@ class game:
 				cleared += 1
 		if cleared > 0:
 			self.linesCleared += cleared
+			self.numOfClears += 1
 			self.chain += 1
 			if cleared == 1:
 				self.score += 100 * self.chain
@@ -274,6 +277,7 @@ class game:
 				self.score += 800 * self.chain
 			elif cleared == 4:
 				self.score += 1600 * self.chain
+				self.numOfTetris += 1
 		else:
 			self.chain = 0
 
@@ -444,7 +448,14 @@ class game:
 		txt = pygame.font.SysFont("Arial", 20).render("Statistics", True, (255,255,255))
 		self.screen.blit(txt, (470, 10))
 		txt = pygame.font.SysFont("Arial", 20).render("Lines: " + str(self.linesCleared), True, (255,255,255))
-		self.screen.blit(txt, (465, 50))
+		self.screen.blit(txt, (460, 50))
+		txt = pygame.font.SysFont("Arial", 20).render("Tetris Rate:", True, (255,255,255))
+		self.screen.blit(txt, (460, 100))
+		if self.linesCleared != 0:
+			txt = pygame.font.SysFont("Arial", 20).render(str(int(self.numOfTetris * 100 / self.numOfClears)) + "%", True, (255,255,255))
+		else:
+			txt = pygame.font.SysFont("Arial", 20).render("100%", True, (255,255,255))
+		self.screen.blit(txt, (470, 130))
 		for n, item in enumerate(self.peices):
 			txt = pygame.font.SysFont("Arial", 20).render(str(self.record[n]), True, (255,255,255))
 			self.screen.blit(txt, (480, 193 + 70 * n))
