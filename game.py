@@ -443,6 +443,8 @@ class game:
 		pygame.draw.line(self.screen, (255,255,255), (450, self.offset.y), (450, 600 + self.offset.y), 3)
 		txt = pygame.font.SysFont("Arial", 20).render("Statistics", True, (255,255,255))
 		self.screen.blit(txt, (470, 10))
+		txt = pygame.font.SysFont("Arial", 20).render("Lines: " + str(self.linesCleared), True, (255,255,255))
+		self.screen.blit(txt, (465, 50))
 		for n, item in enumerate(self.peices):
 			txt = pygame.font.SysFont("Arial", 20).render(str(self.record[n]), True, (255,255,255))
 			self.screen.blit(txt, (480, 193 + 70 * n))
