@@ -437,6 +437,8 @@ class game:
 	def printStats(self):
 		statScale = 15
 		pygame.draw.line(self.screen, (255,255,255), (450, self.offset.y), (450, 600 + self.offset.y), 3)
+		txt = pygame.font.SysFont("Arial", 20).render("Statistics", True, (255,255,255))
+		self.screen.blit(txt, (470, 10))
 		for n, item in enumerate(self.peices):
 			for i, line in enumerate(item):
 				for j, ch in enumerate(line):
