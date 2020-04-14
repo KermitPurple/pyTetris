@@ -6,7 +6,11 @@ from random import choice, randrange
 
 class game:
 
-	configPath = "C:\\Users\\Shane\\Dropbox\\Desktop\\Coding\\python\\pyTetris\\config.txt"
+	configPath = "config.txt"
+	try:
+		open(configPath)
+	except:
+		configPath = "C:\\Users\\Shane\\Dropbox\\Desktop\\Coding\\python\\pyTetris\\config.txt" #custom path if u want to run outside its folder
 
 	peices = [
 	[
