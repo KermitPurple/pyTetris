@@ -6,6 +6,8 @@ from random import choice, randrange
 
 class game:
 
+	configPath = "C:\\Users\\Shane\\Dropbox\\Desktop\\Coding\\python\\pyTetris\\config.txt"
+
 	peices = [
 	[
 		"....",
@@ -512,13 +514,13 @@ class game:
 
 	def readSettingsFromFile(self):
 		values = []
-		with open("config.txt") as f:
+		with open(self.configPath) as f:
 			for line in f:
 				values.append(int(line[:-1]))
 		self.grabBag = bool(values[0])
 		self.shadowOn = bool(values[1])
 
 	def WriteSettingsToFile(self):
-		with open("config.txt", 'w') as f:
+		with open(self.configPath, 'w') as f:
 			f.write(str(int(self.grabBag)) + '\n')
 			f.write(str(int(self.shadowOn)) + '\n')
