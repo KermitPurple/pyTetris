@@ -95,10 +95,10 @@ class game:
 	def printblock(self, real, color, scl = None):
 		if scl == None:
 			scl = self.scl
-		detail_color = color + pygame.Color(128, 128, 128)
+		detail_color = color + pygame.Color(80, 80, 80)
 		pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, scl, scl))    
-		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + scl/10, real.y + 9*scl/10))
-		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + 9*scl/10, real.y + scl/10))
+		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + scl/10, real.y + 9*scl/10), 2)
+		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + 9*scl/10, real.y + scl/10), 2)
 
 	def printpeice(self):
 		for i, line in enumerate(self.peice):
