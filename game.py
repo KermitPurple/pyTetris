@@ -95,7 +95,10 @@ class game:
 	def printblock(self, real, color, scl = None):
 		if scl == None:
 			scl = self.scl
+		detail_color = color + pygame.Color(128, 128, 128)
 		pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, scl, scl))    
+		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + scl/10, real.y + 9*scl/10))
+		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + 9*scl/10, real.y + scl/10))
 
 	def printpeice(self):
 		for i, line in enumerate(self.peice):
@@ -208,20 +211,20 @@ class game:
 
 	def selectcolor(self, ch):
 		if ch == 'I':
-			return (64, 207, 255)
+			return pygame.Color(64, 207, 255)
 		elif ch == 'S':
-			return (4, 255, 0)
+			return pygame.Color(4, 255, 0)
 		elif ch == 'Z':
-			return (255, 0, 0)
+			return pygame.Color(255, 0, 0)
 		elif ch == 'T':
-			return (174, 0, 255)
+			return pygame.Color(174, 0, 255)
 		elif ch == 'O':
-			return (238, 255, 0)
+			return pygame.Color(238, 255, 0)
 		elif ch == 'L':
-			return (255, 153, 0)
+			return pygame.Color(255, 153, 0)
 		elif ch == 'J':
-			return (0, 13, 255)
-		return (0, 0, 0)
+			return pygame.Color(0, 13, 255)
+		return pygame.Color(0, 0, 0)
 
 	def instadrop(self):
 		while self.move(coord(0,1)):
@@ -332,7 +335,7 @@ class game:
 				if ch != '.':
 					real = coord((shadowpos.x + j) * self.scl, (shadowpos.y + i ) * self.scl + self.offset.y)
 					color = self.selectcolor(ch)
-					color = (color[0]/3, color[1]/3, color[2]/3,)
+					color = color // pygame.Color(3, 3, 3)
 					self.printblock(coord(real.x, real.y), color)
 
 	def pause(self):
