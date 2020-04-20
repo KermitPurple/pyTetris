@@ -92,10 +92,13 @@ class game:
 	def realpos(self, x=0, y=0):
 		return coord((self.pos.x + x) * self.scl, (self.pos.y + y) * self.scl + self.offset.y)
 
-	def printblock(self, real, color, scl = None):
+	def printblock(self, real, color, scl = None, shadow = False):
 		if scl == None:
 			scl = self.scl
-		detail_color = color + pygame.Color(80, 80, 80)
+		if shadow:
+			detail_color = color + pygame.Color(40, 40, 40)
+		else:
+			detail_color = color + pygame.Color(80, 80, 80)
 		pygame.draw.rect(self.screen, color, pygame.Rect(real.x, real.y, scl, scl))    
 		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + scl/10, real.y + 9*scl/10), 2)
 		pygame.draw.line(self.screen, detail_color, (real.x + scl/10, real.y + scl/10), (real.x + 9*scl/10, real.y + scl/10), 2)
@@ -337,7 +340,7 @@ class game:
 					real = coord((shadowpos.x + j) * self.scl, (shadowpos.y + i ) * self.scl + self.offset.y)
 					color = self.selectcolor(ch)
 					color = color // pygame.Color(3, 3, 3)
-					self.printblock(coord(real.x, real.y), color)
+					self.printblock(coord(real.x, real.y), color, None, True)
 
 	def pause(self):
 		self.paused = not self.paused
