@@ -346,7 +346,11 @@ class game:
         self.paused = not self.paused
         self.drawPause()
 
+    def coverBoard(self):
+        pygame.draw.rect(self.screen, (0, 0, 0), pygame.Rect(0, self.offset.y, self.scl * 10, self.scl * 20))
+
     def drawPause(self):
+        self.coverBoard()
         txt = pygame.font.SysFont("Arial", 60).render("PAUSED", True, (255,255,255))
         self.screen.blit(txt, (205 - self.offset.x, 200))
         txt = pygame.font.SysFont("Arial", 30).render("Press 'q' to exit", True, (255,255,255))
