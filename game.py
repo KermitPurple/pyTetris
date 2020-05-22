@@ -53,6 +53,7 @@ class game:
     def __init__(self):
         pygame.display.init()
         pygame.font.init()
+        pygame.display.set_caption('PyTetris')
         self.tiks = 0
         self.sz = 550,640
         self.screen = pygame.display.set_mode(size=self.sz)
