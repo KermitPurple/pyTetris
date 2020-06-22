@@ -64,7 +64,6 @@ class game:
         self.speed = 21 # will actually be twenty because it tiks down immedately by one
         self.offset = coord(150, 40)
         self.score = 0
-        self.level = 1
         self.lockrate = 0
         self.locktries = 0
         self.paused = False
@@ -82,8 +81,6 @@ class game:
         pygame.key.set_repeat(80)
         self.fillqueue()
         self.paused = False
-        self.score = 0
-        self.level = 1
         self.linesCleared = 0
         self.numOfTetris = 0
         self.numOfClears = 0
