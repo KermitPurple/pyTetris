@@ -54,14 +54,15 @@ class game:
         pygame.display.init()
         pygame.font.init()
         pygame.display.set_caption('PyTetris')
-        self.tiks = 0
+        self.tiks = 1
         self.sz = 550,640
         self.screen = pygame.display.set_mode(size=self.sz)
         self.running = True
         self.scl = 30
         self.pos = coord(4,0)
         self.holdready = True
-        self.speed = 21 # will actually be twenty because it tiks down immedately by one
+        self.speed = 0
+        self.level = self.get_level()
         self.offset = coord(150, 40)
         self.score = 0
         self.lockrate = 0
@@ -298,7 +299,7 @@ class game:
         self.tiks += 1
         if self.tiks > 100000:
             self.tiks = 0
-        sleep(0.02)
+        sleep(1/60)
 
     def printtop(self):
         #Top line
@@ -370,20 +371,21 @@ class game:
 
     def increasespeed(self):
         if self.tiks % 1500 == 0:
-            self.speed -= 1
-            if self.speed <= 1:
-                self.speed = 1
-            if self.speed >= 5:
-                self.lockrate = 2
-            else:
-                if self.speed == 4:
-                    self.lockrate = 5
-                elif self.speed == 3:
-                    self.lockrate = 7
-                elif self.speed == 2:
-                    self.lockrate = 10
-                elif self.speed == 1:
-                    self.lockrate = 20
+            self.speed += 1
+            self.level = self.get_level()
+            # if self.speed <= 1:
+            #     self.speed = 1
+            # if self.speed >= 5:
+            #     self.lockrate = 2
+            # else:
+            #     if self.speed == 4:
+            #         self.lockrate = 5
+            #     elif self.speed == 3:
+            #         self.lockrate = 7
+            #     elif self.speed == 2:
+            #         self.lockrate = 10
+            #     elif self.speed == 1:
+            #         self.lockrate = 20
 
     def endgame(self):
         self.render()
@@ -400,7 +402,7 @@ class game:
         while self.running:
             if not self.paused and not self.gameover:
                 self.clearlines()
-                if self.tiks % self.speed == 0:
+                if self.tiks % self.level == 0:
                     self.move(coord(0,1), True)
                 if not self.gameover:
                     self.render()
@@ -537,3 +539,20 @@ class game:
         with open(self.configPath, 'w') as f:
             f.write(str(int(self.grabBag)) + '\n')
             f.write(str(int(self.shadowOn)) + '\n')
+
+    def get_level(self):
+        if self.speed == 0: return 48
+        elif self.speed == 1: return 43
+        elif self.speed == 2: return 38
+        elif self.speed == 3: return 33
+        elif self.speed == 4: return 28
+        elif self.speed == 5: return 23
+        elif self.speed == 6: return 18
+        elif self.speed == 7: return 13
+        elif self.speed == 8: return 8
+        elif self.speed == 9: return 6
+        elif self.speed >= 10 and self.speed <= 12: return 5
+        elif self.speed >= 13 and self.speed <= 15: return 4
+        elif self.speed >= 16 and self.speed <= 18: return 3
+        elif self.speed >= 19 and self.speed <= 28: return 2
+        elif self.speed >= 29: return 1
