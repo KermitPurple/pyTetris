@@ -299,7 +299,7 @@ class game:
         self.tiks += 1
         if self.tiks > 100000:
             self.tiks = 0
-        sleep(1/60)
+        sleep(0.0005)
 
     def printtop(self):
         #Top line
