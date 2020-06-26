@@ -86,6 +86,7 @@ class game:
         self.numOfTetris = 0
         self.numOfClears = 0
         self.shadowOn = True
+        self.level_up_goal = 10
         self.readSettingsFromFile()
 
     def realpos(self, x=0, y=0):
@@ -370,9 +371,10 @@ class game:
         self.screen.blit(txt, (18, 385))
 
     def increasespeed(self):
-        if self.tiks % 1500 == 0:
+        if self.linesCleared >= self.level_up_goal:
             self.speed += 1
             self.level = self.get_level()
+            self.level_up_goal += 10
 
     def endgame(self):
         self.render()
