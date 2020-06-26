@@ -525,7 +525,6 @@ class game:
         with open(self.configPath) as f:
             for line in f:
                 values.append(bool(int(line[:-1])))
-        print(values)
         try:
             self.grabBag = values[0]
             self.shadowOn = values[1]
