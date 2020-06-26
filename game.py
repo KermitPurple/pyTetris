@@ -313,7 +313,10 @@ class game:
         self.screen.blit(txt, (345,3))
         # Level
         txt = pygame.font.SysFont("Arial", 20).render("Level: " + str(self.level), True, (255,255,255))
-        self.screen.blit(txt, (150,8))
+        self.screen.blit(txt, (120,8))
+        # chain
+        txt = pygame.font.SysFont("Arial", 20).render("Chain: " + str(self.chain), True, (255,255,255))
+        self.screen.blit(txt, (240,8))
 
     def printgridlines(self):
         #grid lines
