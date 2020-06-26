@@ -199,6 +199,7 @@ class game:
             for j, ch in enumerate(line):
                 if ch != '.':
                     self.grid[i + self.pos.y][j + self.pos.x] = ch
+        self.clearlines()
         self.getnextpeice()
         self.updateRecord()
         self.pos = coord(4,0)
@@ -392,7 +393,6 @@ class game:
         #game loop
         while self.running:
             if not self.paused and not self.gameover:
-                self.clearlines()
                 if self.tiks % self.speed == 0:
                     self.move(coord(0,1), True)
                 if not self.gameover:
