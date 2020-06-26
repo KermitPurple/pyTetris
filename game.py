@@ -522,13 +522,18 @@ class game:
         with open(self.configPath) as f:
             for line in f:
                 values.append(int(line[:-1]))
-        self.grabBag = bool(values[0])
-        self.shadowOn = bool(values[1])
+        try:
+            self.grabBag = bool(values[0])
+            self.shadowOn = bool(values[1])
+            self.shadowOn = bool(values[2])
+        except:
+            self.WriteSettingsToFile()
 
     def WriteSettingsToFile(self):
         with open(self.configPath, 'w') as f:
             f.write(str(int(self.grabBag)) + '\n')
             f.write(str(int(self.shadowOn)) + '\n')
+            f.write(str(int(self.instant_lock)) + '\n')
 
     def get_speed(self):
         if self.level == 0:
