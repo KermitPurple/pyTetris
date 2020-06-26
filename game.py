@@ -61,11 +61,11 @@ class game:
         self.scl = 30
         self.pos = coord(4,0)
         self.holdready = True
-        self.level = 0
+        self.lockrate = 0
+        self.level = 8
         self.speed = self.get_speed()
         self.offset = coord(150, 40)
         self.score = 0
-        self.lockrate = 0
         self.locktries = 0
         self.paused = False
         self.chain = 0
@@ -530,18 +530,35 @@ class game:
             f.write(str(int(self.shadowOn)) + '\n')
 
     def get_speed(self):
-        if self.level == 0: return 48
-        elif self.level == 1: return 43
-        elif self.level == 2: return 38
-        elif self.level == 3: return 33
-        elif self.level == 4: return 28
-        elif self.level == 5: return 23
-        elif self.level == 6: return 18
-        elif self.level == 7: return 13
-        elif self.level == 8: return 8
-        elif self.level == 9: return 6
-        elif self.level >= 10 and self.level <= 12: return 5
-        elif self.level >= 13 and self.level <= 15: return 4
-        elif self.level >= 16 and self.level <= 18: return 3
-        elif self.level >= 19 and self.level <= 28: return 2
-        elif self.level >= 29: return 1
+        if self.level == 0:
+            return 48
+        elif self.level == 1:
+            return 43
+        elif self.level == 2:
+            return 38
+        elif self.level == 3:
+            return 33
+        elif self.level == 4:
+            return 28
+        elif self.level == 5:
+            return 23
+        elif self.level == 6:
+            return 18
+        elif self.level == 7:
+            return 13
+        elif self.level == 8:
+            return 8
+        elif self.level == 9:
+            self.lockrate = 2
+            return 6
+        elif self.level >= 10 and self.level <= 12:
+            self.lockrate = 3
+            return 5
+        elif self.level >= 13 and self.level <= 15:
+            return 4
+        elif self.level >= 16 and self.level <= 18:
+            return 3
+        elif self.level >= 19 and self.level <= 28:
+            return 2
+        elif self.level >= 29:
+            return 1
