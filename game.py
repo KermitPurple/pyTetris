@@ -87,6 +87,7 @@ class game:
         self.numOfClears = 0
         self.shadowOn = True
         self.level_up_goal = 10
+        self.instant_lock = False
         self.readSettingsFromFile()
 
     def realpos(self, x=0, y=0):
@@ -137,7 +138,7 @@ class game:
             if down:
                 if not auto:
                     self.lock()
-                elif self.locktries >= self.lockrate:
+                elif self.locktries >= self.lockrate or self.instant_lock:
                     self.lock()
                     self.locktries = 0
                 else:
