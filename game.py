@@ -373,19 +373,6 @@ class game:
         if self.tiks % 1500 == 0:
             self.speed += 1
             self.level = self.get_level()
-            # if self.speed <= 1:
-            #     self.speed = 1
-            # if self.speed >= 5:
-            #     self.lockrate = 2
-            # else:
-            #     if self.speed == 4:
-            #         self.lockrate = 5
-            #     elif self.speed == 3:
-            #         self.lockrate = 7
-            #     elif self.speed == 2:
-            #         self.lockrate = 10
-            #     elif self.speed == 1:
-            #         self.lockrate = 20
 
     def endgame(self):
         self.render()
