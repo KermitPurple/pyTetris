@@ -62,7 +62,7 @@ class game:
         self.pos = coord(4,0)
         self.holdready = True
         self.lockrate = 0
-        self.level = 8
+        self.level = 0
         self.speed = self.get_speed()
         self.offset = coord(150, 40)
         self.score = 0
@@ -555,10 +555,14 @@ class game:
             self.lockrate = 3
             return 5
         elif self.level >= 13 and self.level <= 15:
+            self.lockrate = 4
             return 4
         elif self.level >= 16 and self.level <= 18:
+            self.lockrate = 5
             return 3
         elif self.level >= 19 and self.level <= 28:
+            self.lockrate = 6
             return 2
         elif self.level >= 29:
+            self.lockrate = 7
             return 1
