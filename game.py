@@ -13,42 +13,42 @@ class game:
         configPath = "C:\\Users\\Shane\\Dropbox\\Desktop\\Coding\\python\\pyTetris\\config.txt" #custom path if u want to run outside its folder
 
     peices = [
-    [
-        "....",
-        "IIII",
-        "....",
-        "....",
-    ],
-    [
-        "S..",
-        "SS.",
-        ".S.",
-    ],
-    [
-        "..Z",
-        ".ZZ",
-        ".Z.",
-    ],
-    [
-        ".T.",
-        "TT.",
-        ".T.",
-    ],
-    [
-        "OO",
-        "OO",
-    ],
-    [
-        ".L.",
-        ".L.",
-        ".LL",
-    ],
-    [
-        ".J.",
-        ".J.",
-        "JJ.",
-    ],
-]
+            [
+                "....",
+                "IIII",
+                "....",
+                "....",
+                ],
+            [
+                "S..",
+                "SS.",
+                ".S.",
+                ],
+            [
+                "..Z",
+                ".ZZ",
+                ".Z.",
+                ],
+            [
+                ".T.",
+                "TT.",
+                ".T.",
+                ],
+            [
+                "OO",
+                "OO",
+                ],
+            [
+                ".L.",
+                ".L.",
+                ".LL",
+                ],
+            [
+                ".J.",
+                ".J.",
+                "JJ.",
+                ],
+            ]
 
     def __init__(self):
         pygame.display.init()
@@ -189,7 +189,7 @@ class game:
         if len(self.remainingPeices) == 0:
             self.remainingPeices = self.peices.copy()
         return self.remainingPeices.pop(randrange(0, len(self.remainingPeices)))
-    
+
     def fillqueue(self):
         self.queue = [self.getrandpeice() for item in self.queue]
 
@@ -231,7 +231,7 @@ class game:
 
     def instadrop(self):
         while self.move(coord(0,1)):
-            self.score += 5
+            self.score += 1
 
     def printqueue(self):
         queuescl = 20
@@ -285,13 +285,13 @@ class game:
             self.numOfClears += 1
             self.chain += 1
             if cleared == 1:
-                self.score += 100 * self.chain
+                self.score += 40 * (self.level + 1) * self.chain
             elif cleared == 2:
-                self.score += 400 * self.chain
+                self.score += 100 * (self.level + 1) * self.chain
             elif cleared == 3:
-                self.score += 800 * self.chain
+                self.score += 300 * (self.level + 1) * self.chain
             elif cleared == 4:
-                self.score += 1600 * self.chain
+                self.score += 1200 * (self.level + 1) * self.chain
                 self.numOfTetris += 1
         else:
             self.chain = 0
@@ -463,7 +463,7 @@ class game:
                 self.move(coord(-1,0))
             elif event.unicode.lower() == 's':
                 self.move(coord(0,1))
-                self.score += 5
+                self.score += 1
             elif event.unicode.lower() == 'd':
                 self.move(coord(1,0))
             elif event.unicode.lower() == 'q':
@@ -502,7 +502,7 @@ class game:
                         point = coord(lengthOffset + 480 + j * statScale , 120 + 70 * n + i * statScale + self.offset.y + lengthOffset)
                         color = self.selectcolor(ch)
                         self.printblock(point, color,statScale)
-    
+
     def updateRecord(self):
         indexes = {
                 'I': 0,
