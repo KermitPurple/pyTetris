@@ -81,7 +81,6 @@ class game:
         self.queue = [self.matrix(4) for i in range(0, 5)]
         pygame.key.set_repeat(80)
         self.fillqueue()
-        self.paused = False
         self.linesCleared = 0
         self.numOfTetris = 0
         self.numOfClears = 0
@@ -370,6 +369,12 @@ class game:
         else:
             txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (255,0,0))
         self.screen.blit(txt, (18, 385))
+        if self.instant_lock:
+            txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (0,255,0))
+        else:
+            txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (255,0,0))
+        self.screen.blit(txt, (6, 415))
+
 
     def increasespeed(self):
         if self.linesCleared >= self.level_up_goal:
@@ -443,6 +448,11 @@ class game:
                 self.drawPause()
             elif event.unicode.lower() == 's':
                 self.shadowOn = not self.shadowOn
+                self.WriteSettingsToFile()
+                self.render()
+                self.drawPause()
+            elif event.unicode.lower() == 'l':
+                self.instant_lock = not self.instant_lock
                 self.WriteSettingsToFile()
                 self.render()
                 self.drawPause()
