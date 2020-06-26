@@ -61,8 +61,8 @@ class game:
         self.scl = 30
         self.pos = coord(4,0)
         self.holdready = True
-        self.speed = 0
-        self.level = self.get_level()
+        self.level = 0
+        self.speed = self.get_speed()
         self.offset = coord(150, 40)
         self.score = 0
         self.lockrate = 0
@@ -311,8 +311,8 @@ class game:
         # Hold
         txt = pygame.font.SysFont("Arial", 30).render("HOLD", True, (255,255,255))
         self.screen.blit(txt, (345,3))
-        # speed
-        txt = pygame.font.SysFont("Arial", 20).render("Speed: " + str(self.speed), True, (255,255,255))
+        # Level
+        txt = pygame.font.SysFont("Arial", 20).render("Level: " + str(self.level), True, (255,255,255))
         self.screen.blit(txt, (150,8))
 
     def printgridlines(self):
@@ -372,8 +372,8 @@ class game:
 
     def increasespeed(self):
         if self.linesCleared >= self.level_up_goal:
-            self.speed += 1
-            self.level = self.get_level()
+            self.level += 1
+            self.speed = self.get_speed()
             self.level_up_goal += 10
 
     def endgame(self):
@@ -391,7 +391,7 @@ class game:
         while self.running:
             if not self.paused and not self.gameover:
                 self.clearlines()
-                if self.tiks % self.level == 0:
+                if self.tiks % self.speed == 0:
                     self.move(coord(0,1), True)
                 if not self.gameover:
                     self.render()
@@ -529,19 +529,19 @@ class game:
             f.write(str(int(self.grabBag)) + '\n')
             f.write(str(int(self.shadowOn)) + '\n')
 
-    def get_level(self):
-        if self.speed == 0: return 48
-        elif self.speed == 1: return 43
-        elif self.speed == 2: return 38
-        elif self.speed == 3: return 33
-        elif self.speed == 4: return 28
-        elif self.speed == 5: return 23
-        elif self.speed == 6: return 18
-        elif self.speed == 7: return 13
-        elif self.speed == 8: return 8
-        elif self.speed == 9: return 6
-        elif self.speed >= 10 and self.speed <= 12: return 5
-        elif self.speed >= 13 and self.speed <= 15: return 4
-        elif self.speed >= 16 and self.speed <= 18: return 3
-        elif self.speed >= 19 and self.speed <= 28: return 2
-        elif self.speed >= 29: return 1
+    def get_speed(self):
+        if self.level == 0: return 48
+        elif self.level == 1: return 43
+        elif self.level == 2: return 38
+        elif self.level == 3: return 33
+        elif self.level == 4: return 28
+        elif self.level == 5: return 23
+        elif self.level == 6: return 18
+        elif self.level == 7: return 13
+        elif self.level == 8: return 8
+        elif self.level == 9: return 6
+        elif self.level >= 10 and self.level <= 12: return 5
+        elif self.level >= 13 and self.level <= 15: return 4
+        elif self.level >= 16 and self.level <= 18: return 3
+        elif self.level >= 19 and self.level <= 28: return 2
+        elif self.level >= 29: return 1
