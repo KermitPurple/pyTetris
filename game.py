@@ -359,20 +359,14 @@ class game:
         self.screen.blit(txt, (203 - self.offset.x , 295))
         txt = pygame.font.SysFont("Arial", 28).render("Press <ESC> or 'p' to resume", True, (255,255,255))
         self.screen.blit(txt, (0, 325))
-        if self.grabBag:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (0,255,0))
-        else:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (255,0,0))
+        # grabbag
+        txt = pygame.font.SysFont("Arial", 28).render("Press 'g' to toggle grabbag", True, (0,255,0) if self.grabBag else (255,0,0))
         self.screen.blit(txt, (15, 355))
-        if self.shadowOn:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (0,255,0))
-        else:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (255,0,0))
+        # shadow
+        txt = pygame.font.SysFont("Arial", 28).render("Press 's' to toggle shadow", True, (0,255,0) if self.shadowOn else (255,0,0))
         self.screen.blit(txt, (18, 385))
-        if self.instant_lock:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (0,255,0))
-        else:
-            txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (255,0,0))
+        # instant lock
+        txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (0,255,0) if self.instant_lock else (255,0,0))
         self.screen.blit(txt, (6, 415))
 
 
