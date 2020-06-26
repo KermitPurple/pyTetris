@@ -369,7 +369,6 @@ class game:
         txt = pygame.font.SysFont("Arial", 28).render("Press 'l' to toggle instant lock", True, (0,255,0) if self.instant_lock else (255,0,0))
         self.screen.blit(txt, (6, 415))
 
-
     def increasespeed(self):
         if self.linesCleared >= self.level_up_goal:
             self.level += 1
@@ -525,11 +524,12 @@ class game:
         values = []
         with open(self.configPath) as f:
             for line in f:
-                values.append(int(line[:-1]))
+                values.append(bool(int(line[:-1])))
+        print(values)
         try:
-            self.grabBag = bool(values[0])
-            self.shadowOn = bool(values[1])
-            self.shadowOn = bool(values[2])
+            self.grabBag = values[0]
+            self.shadowOn = values[1]
+            self.instant_lock = values[2]
         except:
             self.WriteSettingsToFile()
 
