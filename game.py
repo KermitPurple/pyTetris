@@ -10,7 +10,7 @@ class game:
     try:
         open(configPath)
     except:
-        configPath = "C:\\Users\\Shane\\Dropbox\\Desktop\\Coding\\python\\pyTetris\\config.txt" #custom path if u want to run outside its folder
+        configPath = "C:\\Users\\Shane\\Desktop\\Coding\\python\\pyTetris\\config.txt" #custom path if u want to run outside its folder
 
     peices = [
             [
